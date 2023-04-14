@@ -27,4 +27,3 @@ class ArtemisExercise:
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
         printPDF.print_Artemis_page_to_pdf(self.exercise_name, cookie=cookie)
     
-    
