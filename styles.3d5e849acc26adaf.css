@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 @font-face {
     font-family: KaTeX_AMS;
     src: url(KaTeX_AMS-Regular.e101fd3b2e9bbde1.woff2) format("woff2"), url(KaTeX_AMS-Regular.89a32939f615b47f.woff) format("woff"), url(KaTeX_AMS-Regular.76b481f15a4da190.ttf) format("truetype");

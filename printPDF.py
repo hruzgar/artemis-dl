@@ -3,6 +3,9 @@ import pdfkit
 from selenium.webdriver.common.print_page_options import PrintOptions
 import chrome_wrapper
 from pathlib import Path
+import os
+import requests
+from bs4 import BeautifulSoup
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -45,9 +48,66 @@ def print_using_selenium_method(driver, file_name, file_path=''):
         file.write(base64.b64decode(data))
 
 def print_Artemis_page_to_pdf(driver, file_name, file_path=''):
-    with open('temp.html', 'w', encoding='utf-8') as file:
+    with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(driver.page_source)
+    replace_css_file_links('temp/temp.html')
+    # process_html_file('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/')
     temp_driver = chrome_wrapper.get_chromedriver()
-    temp_driver.get(Path().absolute().joinpath('temp.html').as_uri())
+    temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
     print_using_selenium_method(temp_driver, file_name, file_path)
     temp_driver.quit()
+
+
+def replace_css_file_links(html_file_path):
+    # changes the 'link' tags in the html file to direct to my custom css files (for dark mode)
+    with open(html_file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    for link_tag in soup.find_all('link'):
+        if (link_tag['rel'][0] != 'stylesheet'): continue
+        link_tag['href'] = Path().absolute().as_uri() + '/' + link_tag['href']
+        
+    with open(html_file_path, 'w', encoding='utf-8') as file:
+        file.write(str(soup))
+    
+
+def download_image(url, local_directory):
+    response = requests.get(url)
+    if response.status_code == 200:
+        file_name = os.path.join(local_directory, url.split('/')[-1])
+        with open(file_name, 'wb') as file:
+            file.write(response.content)
+        return file_name
+    else:
+        return None
+
+def process_html_file(html_file_path, output_html_file_path, local_directory):
+    with open(html_file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Download images and modify the HTML file
+    print(soup.find_all('img'))
+    for img_tag in soup.find_all('img'):
+        print(img_tag)
+        if (img_tag['src'][0] == '/'):
+            image_url = 'https://artemis.in.tum.de' + img_tag['src']
+        else:
+            image_url = 'https://artemis.in.tum.de/' + img_tag['src']
+
+        downloaded_image_path = download_image(image_url, local_directory)
+        if downloaded_image_path:
+            img_tag['src'] = downloaded_image_path
+
+    # Save the modified HTML file
+    with open(output_html_file_path, 'w', encoding='utf-8') as file:
+        file.write(str(soup))
+
+    print(f"Modified HTML file saved to {output_html_file_path}")
+
+
+# Create the local directory if it doesn't exist
+# os.makedirs(local_directory, exist_ok=True)
