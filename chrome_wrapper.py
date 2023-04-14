@@ -4,6 +4,7 @@ the correct version number"""
 import re
 import subprocess
 import undetected_chromedriver as uc
+from selenium import webdriver
 
 CHROME_VERSION_REGEXP = re.compile(r'.* (\d+\.\d+\.\d+\.\d+)( .*)?')
 
@@ -31,7 +32,7 @@ def get_chrome_version():
             pass
     return None
 
-def get_chrome_driver(driver_arguments):
+def get_undetected_chromedriver(driver_arguments):
     """Configure Chrome WebDriver"""
     chrome_options = uc.ChromeOptions() # pylint: disable=no-member
 
@@ -55,4 +56,10 @@ def get_chrome_driver(driver_arguments):
     # driver.execute_cdp_cmd('Network.setBlockedURLs',
     #     {"urls": ["https://api.geetest.com/get.*"]})
     # driver.execute_cdp_cmd('Network.enable', {})
+    return driver
+
+def get_chromedriver():
+    options = webdriver.ChromeOptions()
+    options.headless = False
+    driver = webdriver.Chrome(options=options)
     return driver
