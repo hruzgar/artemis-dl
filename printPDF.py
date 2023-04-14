@@ -1,6 +1,8 @@
 import base64
 import pdfkit
 from selenium.webdriver.common.print_page_options import PrintOptions
+import chrome_wrapper
+from pathlib import Path
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -26,8 +28,8 @@ def print_using_chromedriver(driver, file_name, file_path=''):
 
 def print_using_selenium_method(driver, file_name, file_path=''):
     print_options = PrintOptions()
-    print_options.page_height = 11.69 # orig 11.69
-    print_options.page_width = 8.27
+    print_options.page_height = 11.75 # orig 11.69
+    print_options.page_width = 8.27 # orig 8.27
     print_options.scale = 0.3
     print_options.background = True
     print_options.margin_bottom = 0.0
@@ -41,3 +43,11 @@ def print_using_selenium_method(driver, file_name, file_path=''):
     print(len(data))
     with open(f'{file_path}{file_name}.pdf', 'wb') as file:
         file.write(base64.b64decode(data))
+
+def print_Artemis_page_to_pdf(driver, file_name, file_path=''):
+    with open('temp.html', 'w', encoding='utf-8') as file:
+        file.write(driver.page_source)
+    temp_driver = chrome_wrapper.get_chromedriver()
+    temp_driver.get(Path().absolute().joinpath('temp.html').as_uri())
+    print_using_selenium_method(temp_driver, file_name, file_path)
+    temp_driver.quit()

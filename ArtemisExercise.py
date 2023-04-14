@@ -14,4 +14,6 @@ class ArtemisExercise:
         self.driver.get(self.exerciseLink)
 
     def print_exercise_to_pdf(self):
-        printPDF.print_using_selenium_method(self.driver, self.exerciseName)
+        print("place holder")
+    
+    
