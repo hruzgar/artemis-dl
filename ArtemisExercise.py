@@ -11,12 +11,13 @@ from selenium.common.exceptions import TimeoutException
 from browser import sdriver
 
 class ArtemisExercise:
-    def __init__(self, exerciseName, exerciseLink):
-        self.exerciseName = exerciseName
-        self.exerciseLink = exerciseLink
+    def __init__(self, course_name, exercise_name, exercise_link):
+        self.course_name = course_name
+        self.exercise_name = exercise_name
+        self.exercise_link = exercise_link
 
     def open(self):
-        sdriver.get(self.exerciseLink)
+        sdriver.get(self.exercise_link)
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[1]/jhi-navbar/nav/div[1]/a/img')))
         except TimeoutException:

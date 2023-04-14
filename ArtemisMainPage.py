@@ -11,14 +11,14 @@ class ArtemisMainPage:
         sdriver.get("https://artemis.in.tum.de/")
 
     def login(userN, passW):
-        userName = sdriver.find_element(By.NAME, "username")
+        user_name = sdriver.find_element(By.NAME, "username")
         password = sdriver.find_element(By.NAME, "password")
-        loginButton = sdriver.find_element(By.ID, "login-button")
-        userName.send_keys(userN)
+        login_button = sdriver.find_element(By.ID, "login-button")
+        user_name.send_keys(userN)
         password.send_keys(passW)
-        loginButton.click()
+        login_button.click()
 
-    def scrapeCoursesToClassList(self):
+    def scrape_courses_to_class_list(self):
         temp_courses = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-overview-course-card')
         self.courses = []
         for counter in range(len(temp_courses)):
@@ -32,8 +32,8 @@ class ArtemisMainPage:
         for num in range(first, last):
             self.driver.get(self.courses[num].course_link)
             time.sleep(2)
-            self.courses[num].collapseAllExercises()
-            self.courses[num].scrapeExercisesToClassList()
+            self.courses[num].collapse_all_exercises()
+            self.courses[num].scrape_exercises_to_class_list()
             self.courses[num].printAllExerciseNames()
             self.courses[num].goToFirstExercise()
 
