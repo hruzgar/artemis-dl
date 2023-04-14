@@ -1,13 +1,10 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from ArtemisExercise import ArtemisExercise
 import time
-from browser import sdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from ArtemisExercise import ArtemisExercise
+from browser import sdriver
 
 class ArtemisCourse:
     def __init__(self, course_name, course_link):
@@ -33,18 +30,15 @@ class ArtemisCourse:
             temp_exercise = ArtemisExercise(self.course_name, exercise_name, exercise_link)
             self.exercises.append(temp_exercise)
     
-    def goToFirstExercise(self):
-        self.exercises[8].open()
-        self.exercises[8].download_exercise()
-        
-    def printAllExerciseNames(self):
-        for exercise in self.exercises:
-            print(exercise.exercise_name)
-    
-    def print_all_exercises(self):
+    def download_one_exercise(self):
+        exercise_num = 8
+        self.exercises[exercise_num].open()
+        self.exercises[exercise_num].download_exercise()
+
+    def download_all_exercises(self):
         for exercise in self.exercises:
             exercise.open()
-            exercise.print_exercise_to_pdf()
+            exercise.download_exercise()
         
     def collapse_all_exercises(self):
         exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')

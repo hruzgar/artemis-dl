@@ -1,19 +1,17 @@
 import time
-import chrome_wrapper
-from ArtemisMainPage import ArtemisMainPage
 from selenium import webdriver
-from PdfDarkMode.darkmode import convert
-import printPDF
+from ArtemisMainPage import ArtemisMainPage
+from const import student_id, password
     
-def run(name):
+def run():
     mainPage = ArtemisMainPage()
     time.sleep(2)
-    ArtemisMainPage.login("***REMOVED***", "***REMOVED***")
+    ArtemisMainPage.login(student_id, password)
     time.sleep(2)
     mainPage.scrape_courses_to_class_list()
     mainPage.enterCourses(0,1)
     time.sleep(5)
 
 if __name__ == '__main__':
-    run('Started!')
+    run()
 
