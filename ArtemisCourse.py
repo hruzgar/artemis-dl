@@ -3,35 +3,30 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from ArtemisExercise import ArtemisExercise
 import time
+from browser import sdriver
 
 class ArtemisCourse:
-    def __init__(self, driver, courseName, course_link):
-        self.driver = driver
+    def __init__(self, courseName, course_link):
         self.courseName = courseName
         self.course_link = course_link
+
     def scrapeExercisesToClassList(self):
-        temp_exercises = self.driver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
+        temp_exercises = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
         self.exercises = []
         for counter in range(len(temp_exercises)):
-            element = temp_exercises[counter]
-            tempExercise = ArtemisExercise(self.driver, ArtemisCourse.getExerciseNameFromCoursePage(element), ArtemisCourse.getExerciseLinkFromCoursePage(element))
+            exercise_card_element = temp_exercises[counter]
+            exercise_name = exercise_card_element.find_element(By.XPATH, './div/div[2]/div[1]/div[2]/h4').text
+            exercise_link = exercise_card_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
+            tempExercise = ArtemisExercise(exercise_name, exercise_link)
             self.exercises.append(tempExercise)
     
-    def getExerciseNameFromCoursePage(exerciseCardElement):
-        return exerciseCardElement.find_element(By.XPATH, './div/div[2]/div[1]/div[2]/h4').text
-
-    def getExerciseLinkFromCoursePage(exerciseCardElement):
-        return exerciseCardElement.find_element(By.TAG_NAME, 'a').get_attribute('href')
-        
     def goToFirstExercise(self):
-        self.exercises[0].open_exercise_in_browser()
+        self.exercises[0].open()
         self.exercises[0].print_exercise_to_pdf()
         
-    
     def printAllExerciseNames(self):
         for exercise in self.exercises:
             print(exercise.exerciseName)
-         
         
     def collapseAllExercises(self):
         exercise_list_elements = self.driver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')

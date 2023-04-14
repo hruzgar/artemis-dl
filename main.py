@@ -16,13 +16,12 @@ def get_page_source(driver):
 def basla(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
-    driver = chrome_wrapper.get_chromedriver()
     print("chrome driver alindi")
     time.sleep(2)
-    mainPage = ArtemisMainPage(driver)
+    mainPage = ArtemisMainPage()
     time.sleep(2)
     mainPage.login("***REMOVED***", "***REMOVED***")
-    time.sleep(2)
+    time.sleep(5)
     mainPage.scrapeCoursesToClassList()
     mainPage.enterCourses(0,1)
     time.sleep(5)

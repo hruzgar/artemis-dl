@@ -3,34 +3,30 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from ArtemisCourse import ArtemisCourse
 import time
+from browser import sdriver
 
 class ArtemisMainPage:
 
-    def __init__(self, driver: webdriver):
-        self.driver = driver
-        self.driver.get("https://artemis.in.tum.de/")
+    def __init__(self):
+        sdriver.get("https://artemis.in.tum.de/")
 
-    def login(self, userN, passW):
-        userName = self.driver.find_element(By.NAME, "username")
-        password = self.driver.find_element(By.NAME, "password")
-        loginButton = self.driver.find_element(By.ID, "login-button")
+    def login(userN, passW):
+        userName = sdriver.find_element(By.NAME, "username")
+        password = sdriver.find_element(By.NAME, "password")
+        loginButton = sdriver.find_element(By.ID, "login-button")
         userName.send_keys(userN)
         password.send_keys(passW)
         loginButton.click()
 
     def scrapeCoursesToClassList(self):
-        temp_courses = self.driver.find_elements(By.CSS_SELECTOR, 'jhi-overview-course-card')
+        temp_courses = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-overview-course-card')
         self.courses = []
         for counter in range(len(temp_courses)):
-            element = temp_courses[counter]
-            tempClass = ArtemisCourse(self.driver, ArtemisMainPage.get_course_name_from_MainPage(element), ArtemisMainPage.get_course_link_from_MainPage(element))
+            course_card_element = temp_courses[counter]
+            course_name = course_card_element.find_element(By.XPATH, './div/div/div/div/div[2]/h5').text
+            course_link = course_card_element.find_element(By.XPATH, './div/div[1]/a').get_attribute('href') 
+            tempClass = ArtemisCourse(course_name, course_link)
             self.courses.append(tempClass)
-
-    def get_course_name_from_MainPage(course_card_element):
-        return course_card_element.find_element(By.XPATH, './div/div/div/div/div[2]/h5').text
-
-    def get_course_link_from_MainPage(course_card_element):
-        return course_card_element.find_element(By.XPATH, './div/div[1]/a').get_attribute('href')
     
     def enterCourses(self, first, last):
         for num in range(first, last):
@@ -40,7 +36,6 @@ class ArtemisMainPage:
             self.courses[num].scrapeExercisesToClassList()
             self.courses[num].printAllExerciseNames()
             self.courses[num].goToFirstExercise()
-
 
     def enterAllCourses(self):
         self.enterCourses(0, len(self.courses))
