@@ -1,11 +1,10 @@
-import base64
-import pdfkit
-from selenium.webdriver.common.print_page_options import PrintOptions
-import chrome_wrapper
-from pathlib import Path
 import os
 import requests
+import base64
+from selenium.webdriver.common.print_page_options import PrintOptions
+from pathlib import Path
 from bs4 import BeautifulSoup
+import chrome_wrapper
 from browser import sdriver
 from const import download_dir, temp_dir
 
@@ -54,7 +53,7 @@ def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
     with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(sdriver.page_source)
     replace_css_file_links('temp/temp.html')
-    download_remote_images_and_replace_link('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
+    download_remote_images_and_replace_links('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
     temp_driver = chrome_wrapper.get_chromedriver()
     temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
     print_using_selenium_method(temp_driver, exercise_name, str(download_dir.joinpath(exercise_name)))
@@ -86,7 +85,7 @@ def download_image(url, local_directory, cookie):
     else:
         return None
 
-def download_remote_images_and_replace_link(html_file_path, output_html_file_path, local_directory, cookie):
+def download_remote_images_and_replace_links(html_file_path, output_html_file_path, local_directory, cookie):
     # finds all 'img' tags in html file, downloads the images and replaces the href to local image file
     with open(html_file_path, 'r', encoding='utf-8') as file:
         html_content = file.read()
@@ -107,8 +106,3 @@ def download_remote_images_and_replace_link(html_file_path, output_html_file_pat
 
     with open(output_html_file_path, 'w', encoding='utf-8') as file:
         file.write(str(soup))
-
-
-
-# Create the local directory if it doesn't exist
-# os.makedirs(local_directory, exist_ok=True)
