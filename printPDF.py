@@ -7,6 +7,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from browser import sdriver
+from const import download_dir, temp_dir
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -43,18 +44,20 @@ def print_using_selenium_method(driver, file_name, file_path=''):
     print_options.orientation = 'portrait'
     print_options.shrink_to_fit = False
     data = driver.print_page(print_options)
-    with open(f'{file_path}{file_name}.pdf', 'wb') as file:
-        file.write(base64.b64decode(data))
-    print(f"PDF-File '{file_path}{file_name}.pdf' was created.")
 
-def print_Artemis_page_to_pdf(file_name, file_path='', cookie=''):
+    os.makedirs(file_path, exist_ok=True)
+    with open(f'{file_path}\\{file_name}.pdf', 'wb') as file:
+        file.write(base64.b64decode(data))
+    print(f"PDF-File '{file_path}\\{file_name}.pdf' was created.")
+
+def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
     with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(sdriver.page_source)
     replace_css_file_links('temp/temp.html')
-    process_html_file('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
+    download_remote_images_and_replace_link('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
     temp_driver = chrome_wrapper.get_chromedriver()
     temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
-    print_using_selenium_method(temp_driver, file_name, file_path)
+    print_using_selenium_method(temp_driver, exercise_name, str(download_dir.joinpath(exercise_name)))
     temp_driver.quit()
 
 
@@ -83,13 +86,13 @@ def download_image(url, local_directory, cookie):
     else:
         return None
 
-def process_html_file(html_file_path, output_html_file_path, local_directory, cookie):
+def download_remote_images_and_replace_link(html_file_path, output_html_file_path, local_directory, cookie):
+    # finds all 'img' tags in html file, downloads the images and replaces the href to local image file
     with open(html_file_path, 'r', encoding='utf-8') as file:
         html_content = file.read()
 
     soup = BeautifulSoup(html_content, 'html.parser')
 
-    # Download images and modify the HTML file
     print(soup.find_all('img'))
     for img_tag in soup.find_all('img'):
         print(img_tag)
@@ -102,11 +105,9 @@ def process_html_file(html_file_path, output_html_file_path, local_directory, co
         if downloaded_image_path:
             img_tag['src'] = downloaded_image_path
 
-    # Save the modified HTML file
     with open(output_html_file_path, 'w', encoding='utf-8') as file:
         file.write(str(soup))
 
-    print(f"Modified HTML file saved to {output_html_file_path}")
 
 
 # Create the local directory if it doesn't exist

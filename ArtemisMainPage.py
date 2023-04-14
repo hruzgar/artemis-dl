@@ -31,7 +31,7 @@ class ArtemisMainPage:
     def enterCourses(self, first, last):
         for num in range(first, last):
             self.courses[num].open()
-            self.courses[num].print_all_exercises()
+            self.courses[num].goToFirstExercise()
             # self.courses[num].printAllExerciseNames()
             # self.courses[num].goToFirstExercise()
 

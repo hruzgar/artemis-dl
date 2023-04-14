@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from browser import sdriver
+from clone_repos import clone_all_repos
 
 class ArtemisExercise:
     def __init__(self, course_name, exercise_name, exercise_link):
@@ -25,5 +26,10 @@ class ArtemisExercise:
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
-        printPDF.print_Artemis_page_to_pdf(self.exercise_name, cookie=cookie)
+        printPDF.print_artemis_exercise_to_pdf(self.exercise_name, cookie=cookie)
+
+    def download_exercise(self):
+        self.print_exercise_to_pdf()
+        clone_all_repos(self.exercise_name)
+
     

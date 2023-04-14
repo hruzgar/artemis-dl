@@ -9,7 +9,7 @@ def run(name):
     mainPage = ArtemisMainPage()
     time.sleep(2)
     ArtemisMainPage.login("***REMOVED***", "***REMOVED***")
-    time.sleep(5)
+    time.sleep(2)
     mainPage.scrape_courses_to_class_list()
     mainPage.enterCourses(0,1)
     time.sleep(5)

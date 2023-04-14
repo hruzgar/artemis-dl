@@ -35,11 +35,7 @@ class ArtemisCourse:
     
     def goToFirstExercise(self):
         self.exercises[8].open()
-        self.exercises[8].print_exercise_to_pdf()
-        time.sleep(2)
-        self.exercises[9].open()
-        time.sleep(2)
-        self.exercises[9].print_exercise_to_pdf()
+        self.exercises[8].download_exercise()
         
     def printAllExerciseNames(self):
         for exercise in self.exercises:
