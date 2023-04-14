@@ -30,12 +30,10 @@ class ArtemisMainPage:
     
     def enterCourses(self, first, last):
         for num in range(first, last):
-            self.driver.get(self.courses[num].course_link)
-            time.sleep(2)
-            self.courses[num].collapse_all_exercises()
-            self.courses[num].scrape_exercises_to_class_list()
-            self.courses[num].printAllExerciseNames()
-            self.courses[num].goToFirstExercise()
+            self.courses[num].open()
+            self.courses[num].print_all_exercises()
+            # self.courses[num].printAllExerciseNames()
+            # self.courses[num].goToFirstExercise()
 
     def enterAllCourses(self):
         self.enterCourses(0, len(self.courses))
