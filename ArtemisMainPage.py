@@ -1,18 +1,19 @@
 from selenium.webdriver.common.by import By
 from ArtemisCourse import ArtemisCourse
 from browser import sdriver
+import const
 
 class ArtemisMainPage:
 
     def __init__(self):
         sdriver.get("https://artemis.in.tum.de/")
 
-    def login(userN, passW):
+    def login():
         user_name = sdriver.find_element(By.NAME, "username")
         password = sdriver.find_element(By.NAME, "password")
         login_button = sdriver.find_element(By.ID, "login-button")
-        user_name.send_keys(userN)
-        password.send_keys(passW)
+        user_name.send_keys(const.student_id)
+        password.send_keys(const.password)
         login_button.click()
 
     def scrape_courses_to_class_list(self):
@@ -28,7 +29,7 @@ class ArtemisMainPage:
     def enterCourses(self, first, last):
         for num in range(first, last):
             self.courses[num].open()
-            self.courses[num].goToFirstExercise()
+            self.courses[num].download_one_exercise()
             # self.courses[num].printAllExerciseNames()
             # self.courses[num].goToFirstExercise()
 

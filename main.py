@@ -1,16 +1,15 @@
 import time
-from selenium import webdriver
 from ArtemisMainPage import ArtemisMainPage
-from const import student_id, password
+from ArtemisCourse import ArtemisCourse
+from browser import sdriver
     
 def run():
     mainPage = ArtemisMainPage()
+    ArtemisMainPage.login()
     time.sleep(2)
-    ArtemisMainPage.login(student_id, password)
-    time.sleep(2)
-    mainPage.scrape_courses_to_class_list()
-    mainPage.enterCourses(0,1)
-    time.sleep(5)
+    pgdp = ArtemisCourse('Praktikum: Grundlagen der Programmierung WS22/23', 'https://artemis.in.tum.de/courses/201/exercises')
+    pgdp.open()
+    pgdp.download_one_exercise()
 
 if __name__ == '__main__':
     run()

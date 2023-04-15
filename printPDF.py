@@ -53,6 +53,7 @@ def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
     with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(sdriver.page_source)
     replace_css_file_links('temp/temp.html')
+    remove_unnecessary_elements('temp/temp.html')
     download_remote_images_and_replace_links('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
     temp_driver = chrome_wrapper.get_chromedriver()
     temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
@@ -71,6 +72,22 @@ def replace_css_file_links(html_file_path):
         if (link_tag['rel'][0] != 'stylesheet'): continue
         link_tag['href'] = Path().absolute().as_uri() + '/' + link_tag['href']
         
+    with open(html_file_path, 'w', encoding='utf-8') as file:
+        file.write(str(soup))
+
+def remove_unnecessary_elements(html_file_path):
+    with open(html_file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1)')[0].decompose()
+    soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > nav')[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
+    soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > div > div > ol')[0].decompose() # Index (Zeigt 'Courses > Prakti..')
+    soup.css.select('#exercise-header > div.right-col > div')[0].decompose() # Submission due: ..
+    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.tab-bar.tab-bar-exercise-details.ps-3.pe-3.justify-content-end')[0].decompose() # Clone Repository part
+    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div > jhi-programming-exercise-instructions > div > jhi-programming-exercise-instructions-step-wizard > div')[0].decompose() # Tasks..
+    soup.css.select('body > jhi-main > div > jhi-footer')[0].decompose() # Footer (About, Privacy und so ganz unten)
     with open(html_file_path, 'w', encoding='utf-8') as file:
         file.write(str(soup))
     

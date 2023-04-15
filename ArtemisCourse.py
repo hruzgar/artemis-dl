@@ -14,9 +14,9 @@ class ArtemisCourse:
     def open(self):
         sdriver.get(self.course_link)
         try:
-            WebDriverWait(sdriver, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
+            WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
         except TimeoutException:
-            print("Exercise Loading took too much time!")
+            print("Course-Site Loading took too much time!")
         self.collapse_all_exercises()
         self.scrape_exercises_to_class_list()
 
@@ -31,7 +31,7 @@ class ArtemisCourse:
             self.exercises.append(temp_exercise)
     
     def download_one_exercise(self):
-        exercise_num = 8
+        exercise_num = 9
         self.exercises[exercise_num].open()
         self.exercises[exercise_num].download_exercise()
 
