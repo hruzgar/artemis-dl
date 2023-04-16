@@ -50,37 +50,33 @@ def print_using_selenium_method(driver, file_name, file_path=''):
     print(f"PDF-File '{file_path}\\{file_name}.pdf' was created.")
 
 def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie=''):
-    with open('temp/temp.html', 'w', encoding='utf-8') as file:
-        file.write(sdriver.page_source)
-    replace_css_file_links('temp/temp.html')
-    remove_unnecessary_elements('temp/temp.html')
-    download_remote_images_and_replace_links('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
+    soup = BeautifulSoup(sdriver.page_source, 'html.parser')
+    soup = replace_css_file_links(soup)
+    soup = remove_unnecessary_elements(soup)
+    soup = remove_javascript_links(soup)
+    soup = download_remote_images_and_replace_links(soup, str(temp_dir), cookie=cookie)
+    with open(str(temp_dir.joinpath('temp.html')), 'w', encoding='utf-8') as file:
+        file.write(str(soup))
+
     temp_driver = chrome_wrapper.get_chromedriver()
-    temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
+    temp_driver.get(temp_dir.joinpath('temp.html').as_uri())
     print_using_selenium_method(temp_driver, exercise_name, str(exercise_download_dir))
     temp_driver.quit()
 
+def remove_javascript_links(soup):
+    all_scripts = soup.find_all('script')
+    for counter in range(len(all_scripts)):
+        all_scripts[counter].decompose()
+    return soup
 
-def replace_css_file_links(html_file_path):
+def replace_css_file_links(soup):
     # changes the 'link' tags in the html file to direct to my custom css files (for dark mode)
-    with open(html_file_path, 'r', encoding='utf-8') as file:
-        html_content = file.read()
-
-    soup = BeautifulSoup(html_content, 'html.parser')
-
     for link_tag in soup.find_all('link'):
         if (link_tag['rel'][0] != 'stylesheet'): continue
         link_tag['href'] = Path().absolute().as_uri() + '/' + link_tag['href']
-        
-    with open(html_file_path, 'w', encoding='utf-8') as file:
-        file.write(str(soup))
+    return soup    
 
-def remove_unnecessary_elements(html_file_path):
-    with open(html_file_path, 'r', encoding='utf-8') as file:
-        html_content = file.read()
-
-    soup = BeautifulSoup(html_content, 'html.parser')
-
+def remove_unnecessary_elements(soup):
     soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1)')[0].decompose()
     soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > nav')[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
     soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > div > div > ol')[0].decompose() # Index (Zeigt 'Courses > Prakti..')
@@ -95,9 +91,7 @@ def remove_unnecessary_elements(html_file_path):
         list[0].decompose()
     ###
     soup.css.select('body > jhi-main > div > jhi-footer')[0].decompose() # Footer (About, Privacy und so ganz unten)
-    with open(html_file_path, 'w', encoding='utf-8') as file:
-        file.write(str(soup))
-    
+    return soup
 
 def download_image(url, local_directory, cookie):
     response = requests.get(url, headers={"cookie": cookie})
@@ -109,16 +103,9 @@ def download_image(url, local_directory, cookie):
     else:
         return None
 
-def download_remote_images_and_replace_links(html_file_path, output_html_file_path, local_directory, cookie):
+def download_remote_images_and_replace_links(soup, local_directory, cookie):
     # finds all 'img' tags in html file, downloads the images and replaces the href to local image file
-    with open(html_file_path, 'r', encoding='utf-8') as file:
-        html_content = file.read()
-
-    soup = BeautifulSoup(html_content, 'html.parser')
-
-    print(soup.find_all('img'))
     for img_tag in soup.find_all('img'):
-        print(img_tag)
         if (img_tag['src'][0] == '/'):
             image_url = 'https://artemis.in.tum.de' + img_tag['src']
         else:
@@ -128,5 +115,4 @@ def download_remote_images_and_replace_links(html_file_path, output_html_file_pa
         if downloaded_image_path:
             img_tag['src'] = downloaded_image_path
 
-    with open(output_html_file_path, 'w', encoding='utf-8') as file:
-        file.write(str(soup))
+    return soup

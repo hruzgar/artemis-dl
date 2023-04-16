@@ -28,7 +28,7 @@ class ArtemisExercise:
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
-        printPDF.print_artemis_exercise_to_pdf(exercise_name=self.exercise_name, exercise_download_dir=self.exercise_download_path,cookie=cookie)
+        printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path,cookie=cookie)
 
     def download_exercise(self):
         self.print_exercise_to_pdf()
