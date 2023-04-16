@@ -3,6 +3,9 @@ import const;
 from pathlib import Path
 
 def clone_git_https_repo_with_credentials(repo_url, destination_dir):
+    splitted_url = repo_url.split('/')
+    splitted_url[2] = 'bitbucket.ase.in.tum.de'
+    repo_url = '/'.join(splitted_url)
     repo_name = repo_url.split('/')[-1].split('.')[0]
     repo_url_with_credentials = repo_url.replace("https://", f"https://{const.student_id}:{const.password}@")
     try:
@@ -26,9 +29,15 @@ def get_repo_links_from_exercise_name(exercise_name):
     tests_repo_link = f'{repo_link_first_part}tests.git'
     return {'personal':personal_repo_link,'practice':practice_repo_link,'solution':solution_repo_link,'tests':tests_repo_link}
 
-def clone_all_repos(exercise_name):
+def clone_all_repos_using_exercise_name(exercise_name):
+    # only works with pgdp
     repo_urls = get_repo_links_from_exercise_name(exercise_name)
     if repo_urls == None: return
     for repo in repo_urls:
         clone_git_https_repo_with_credentials(repo_urls[repo], const.download_dir.joinpath(exercise_name))
+
+def clone_all_repos(repo_urls, exercise_name):
+    for repo in repo_urls:
+        clone_git_https_repo_with_credentials(repo_urls[repo], const.download_dir.joinpath(exercise_name))
+
 

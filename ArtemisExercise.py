@@ -6,12 +6,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from browser import sdriver
 from clone_repos import clone_all_repos
+from obvious_repo_urls import get_obvious_repo_urls
+from hidden_repo_urls import get_hidden_repo_urls
 
 class ArtemisExercise:
     def __init__(self, course_name, exercise_name, exercise_link):
         self.course_name = course_name
         self.exercise_name = exercise_name
         self.exercise_link = exercise_link
+        self.exercise_repo_urls = {}
 
     def open(self):
         sdriver.get(self.exercise_link)
@@ -26,6 +29,11 @@ class ArtemisExercise:
 
     def download_exercise(self):
         self.print_exercise_to_pdf()
-        clone_all_repos(self.exercise_name)
+        self.clone_repos()
+
+    def clone_repos(self):
+        repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
+        clone_all_repos(repo_urls=repo_urls, exercise_name=self.exercise_name)
+
 
     

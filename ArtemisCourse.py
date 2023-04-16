@@ -48,7 +48,7 @@ class ArtemisCourse:
             svg_element = t.find_element(By.TAG_NAME, 'svg')
             icon_state = svg_element.get_attribute("data-icon")
             sdriver.execute_script("arguments[0].scrollIntoView();", svg_element)
-            time.sleep(0.6)
+            time.sleep(0.7)
             if icon_state == 'angle-down':
                 t.click()
                 # time.sleep(2)

@@ -53,7 +53,7 @@ def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
     with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(sdriver.page_source)
     replace_css_file_links('temp/temp.html')
-    remove_unnecessary_elements('temp/temp.html')
+    # remove_unnecessary_elements('temp/temp.html')
     download_remote_images_and_replace_links('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
     temp_driver = chrome_wrapper.get_chromedriver()
     temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
