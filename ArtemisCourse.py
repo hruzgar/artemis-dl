@@ -36,9 +36,15 @@ class ArtemisCourse:
         self.exercises[exercise_num].download_exercise()
 
     def download_all_exercises(self):
-        for exercise in self.exercises:
-            exercise.open()
-            exercise.download_exercise()
+        for counter in range(len(self.exercises)):
+            start = time.time()
+            self.exercises[counter].open()
+            self.exercises[counter].collapse_all_parts()
+            self.exercises[counter].download_exercise()
+            end = time.time()
+            elapsed_time = round(end - start)
+            print(f'Downloaded {counter + 1}/{len(self.exercises)} in {elapsed_time} seconds: {self.exercises[counter].exercise_name}')
+
         
     def collapse_all_exercises(self):
         exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')

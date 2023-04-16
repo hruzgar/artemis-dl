@@ -6,6 +6,7 @@ import Artemis
 from browser import sdriver
     
 def run():
+    ## Memory Consumption ~200mB for Google Chrome and Python
     sdriver.get('https://artemis.in.tum.de/')
     Artemis.enable_dark_mode()
     Artemis.login()
@@ -14,9 +15,18 @@ def run():
     # era.open()
     # era.download_exercise()
 
-    pgdp = ArtemisExercise(course_name='', exercise_name='W11B01 - Pengu Survivors', exercise_link='https://artemis.in.tum.de/courses/201/exercises/8880')
-    pgdp.open()
-    pgdp.download_exercise()
+    # pgdp = ArtemisExercise(course_name='Praktikum: Grundlagen der Programmierung WS22/23', exercise_name='W09H03 - Videoverarbeitung', exercise_link='https://artemis.in.tum.de/courses/201/exercises/8761')
+    # pgdp.open()
+    # pgdp.collapse_all_parts()
+    # pgdp.download_exercise()
+
+    # pgdp_course = ArtemisCourse('Praktikum: Grundlagen der Programmierung WS22/23', 'https://artemis.in.tum.de/courses/201/exercises')
+    # pgdp_course.open()
+    # pgdp_course.download_all_exercises()
+
+    era_course = ArtemisCourse('Einführung in die Rechnerarchitektur (WS22/23)', 'https://artemis.in.tum.de/courses/218/exercises')
+    era_course.open()
+    era_course.download_all_exercises()
 
 if __name__ == '__main__':
     run()

@@ -1,4 +1,5 @@
 import os
+import time
 import requests
 import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
@@ -55,13 +56,21 @@ def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie='
     soup = remove_unnecessary_elements(soup)
     soup = remove_javascript_links(soup)
     soup = download_remote_images_and_replace_links(soup, str(temp_dir), cookie=cookie)
+    os.makedirs(str(temp_dir), exist_ok=True)
     with open(str(temp_dir.joinpath('temp.html')), 'w', encoding='utf-8') as file:
         file.write(str(soup))
 
-    temp_driver = chrome_wrapper.get_chromedriver()
-    temp_driver.get(temp_dir.joinpath('temp.html').as_uri())
-    print_using_selenium_method(temp_driver, exercise_name, str(exercise_download_dir))
-    temp_driver.quit()
+    original_window = sdriver.current_window_handle
+    sdriver.switch_to.new_window('tab')
+    sdriver.get(temp_dir.joinpath('temp.html').as_uri())
+    print_using_selenium_method(sdriver, exercise_name, str(exercise_download_dir))
+    sdriver.close()
+    sdriver.switch_to.window(original_window)
+    time.sleep(1)
+    # temp_driver = chrome_wrapper.get_chromedriver()
+    # temp_driver.get(temp_dir.joinpath('temp.html').as_uri())
+    # print_using_selenium_method(temp_driver, exercise_name, str(exercise_download_dir))
+    # temp_driver.quit()
 
 def remove_javascript_links(soup):
     all_scripts = soup.find_all('script')
@@ -77,13 +86,32 @@ def replace_css_file_links(soup):
     return soup    
 
 def remove_unnecessary_elements(soup):
-    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1)')[0].decompose()
+    ###
+    # Remove Results Bar if exists
+    first = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div.row.mb-2.mt-2.align-items-baseline.d-none.d-md-flex')
+    if len(first) != 0: first[0].decompose()
+    second = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div:nth-child(2)')
+    if len(second) != 0: second[0].decompose()
+    third = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div:nth-child(3)')
+    if len(third) != 0: third[0].decompose()
+
+    ###
     soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > nav')[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
     soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > div > div > ol')[0].decompose() # Index (Zeigt 'Courses > Prakti..')
-    soup.css.select('#exercise-header > div.left-col > div.points-assessment-row.ng-star-inserted > span:nth-child(2)')[0].decompose() # 'Assessment:automatic'
-    soup.css.select('#exercise-header > div.right-col > div')[0].decompose() # Submission due: ..
+    
+    # 'Assessment:automatic'
+    fourth = soup.css.select('#exercise-header > div.left-col > div.points-assessment-row.ng-star-inserted > span:nth-child(2)')
+    if len(fourth) != 0: fourth[0].decompose()
+
+    due_things = soup.css.select('#exercise-header > div.right-col > div') # Submission due: ..
+    for due_thing in due_things:
+        due_thing.decompose()
+
     soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.tab-bar.tab-bar-exercise-details.ps-3.pe-3.justify-content-end')[0].decompose() # Clone Repository part
-    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div > jhi-programming-exercise-instructions > div > jhi-programming-exercise-instructions-step-wizard > div')[0].decompose() # Tasks..
+    ###
+    # remove 'Tasks' part, if exists
+    fifth = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div > jhi-programming-exercise-instructions > div > jhi-programming-exercise-instructions-step-wizard')
+    if len(fifth) != 0: fifth[0].decompose()
     ###
     # remove Community Field if exists
     list = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div.col.d-flex.flex-grow-1.justify-end')
