@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from ArtemisExercise import ArtemisExercise
+from . ArtemisExercise import ArtemisExercise
 from browser import sdriver
 
 class ArtemisCourse:

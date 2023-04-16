@@ -5,7 +5,6 @@ import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
 from pathlib import Path
 from bs4 import BeautifulSoup
-import chrome_wrapper
 from browser import sdriver
 from const import download_dir, temp_dir
 

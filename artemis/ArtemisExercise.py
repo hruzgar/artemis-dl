@@ -4,11 +4,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from pathlib import Path
 from browser import sdriver
-from clone_repos import clone_all_repos
-from obvious_repo_urls import get_obvious_repo_urls
-from hidden_repo_urls import get_hidden_repo_urls
+from git_repos.clone_repos import clone_all_repos
+from git_repos.obvious_repo_urls import get_obvious_repo_urls
+from git_repos.hidden_repo_urls import get_hidden_repo_urls
 import utils
 import const
 

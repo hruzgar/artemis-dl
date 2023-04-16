@@ -1,8 +1,6 @@
 import time
-from ArtemisMainPage import ArtemisMainPage
-from ArtemisCourse import ArtemisCourse
-from ArtemisExercise import ArtemisExercise
-import Artemis
+from artemis.ArtemisCourse import ArtemisCourse
+from artemis import Artemis
 from browser import sdriver
     
 def run():
