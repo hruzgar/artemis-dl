@@ -16,7 +16,6 @@ def get_hidden_repo_urls():
         if 'tests' in link:
             if '.git' not in link: link = get_git_link_from_repo_browse_link(link)
             repo_urls['tests'] = link
-    print('Hidden repos urls: ' + str(repo_urls))
     return repo_urls
 
 def get_git_link_from_repo_browse_link(link):
@@ -25,5 +24,3 @@ def get_git_link_from_repo_browse_link(link):
     repo_name = link_parts[-2]
     return f'https://bitbucket.ase.in.tum.de/scm/{project_name.lower()}/{repo_name}.git'
     
-
-

@@ -2,23 +2,16 @@ import time
 from selenium.webdriver.common.by import By
 from browser import sdriver
 
-
 def get_obvious_repo_urls():
     # only gets practice and personal repo urls.
-    print('get obvious basladi')
     create_practice_exercise_if_exists()
-    print('practice exercise seyi gecti')
     if not click_clone_repo_button(): return {}
-    print('clone repo button basildi')
     personal_repo_url = get_personal_repo_url()
-    print('Personal Repo URL: ' + personal_repo_url)
     practice_repo_url = get_practice_repo_url()
-    print('Practice Repo URL: ' + practice_repo_url)
     urls = {}
     if personal_repo_url != '': urls['personal'] = personal_repo_url
     if practice_repo_url != '': urls['practice'] = practice_repo_url
     return urls
-    
 
 def get_personal_repo_url():
     repo_type_to_https()
@@ -33,7 +26,6 @@ def get_practice_repo_url():
     url = get_repo_url_from_clone_repo_dialog()
     sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input').click()
     return url
-
 
 def get_repo_url_from_clone_repo_dialog():
     return sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[2]/pre').text

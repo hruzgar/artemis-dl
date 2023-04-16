@@ -14,7 +14,6 @@ class ArtemisExercise:
         self.course_name = course_name
         self.exercise_name = exercise_name
         self.exercise_link = exercise_link
-        self.exercise_repo_urls = {}
 
     def open(self):
         sdriver.get(self.exercise_link)
@@ -32,8 +31,8 @@ class ArtemisExercise:
         self.clone_repos()
 
     def clone_repos(self):
-        repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
-        clone_all_repos(repo_urls=repo_urls, exercise_name=self.exercise_name)
+        self.repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
+        clone_all_repos(repo_urls=self.repo_urls, exercise_name=self.exercise_name)
 
 
     
