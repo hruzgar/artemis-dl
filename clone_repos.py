@@ -12,8 +12,8 @@ def clone_git_https_repo_with_credentials(repo_url, destination_dir):
     except:
         pass
 
-def clone_all_repos(repo_urls, exercise_name):
+def clone_all_repos(repo_urls, local_download_dir):
     for repo in repo_urls:
-        clone_git_https_repo_with_credentials(repo_urls[repo], const.download_dir.joinpath(exercise_name))
+        clone_git_https_repo_with_credentials(repo_urls[repo], local_download_dir)
 
 

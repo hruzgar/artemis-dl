@@ -1,10 +1,13 @@
-import chrome_wrapper
-import printPDF
-from ArtemisMainPage import ArtemisMainPage
-import time
+import utils
 
-driver = chrome_wrapper.get_chromedriver()
-time.sleep(2)
-driver.get('https://artemis.in.tum.de/')
-time.sleep(2)
-printPDF.print_Artemis_page_to_pdf(driver, file_name='testAbi')
+course_name = 'Praktikum: Grundlagen der Programmierung WS22/23'
+exercise_name = 'W02P02 - Kontrollstrukturen I'
+
+print(course_name)
+print(exercise_name)
+print('***')
+print(utils.get_valid_filename(course_name))
+print(utils.get_valid_filename(exercise_name))
+print('***')
+print(utils.slugify(course_name))
+print(utils.slugify(exercise_name))

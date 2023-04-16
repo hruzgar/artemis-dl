@@ -49,7 +49,7 @@ def print_using_selenium_method(driver, file_name, file_path=''):
         file.write(base64.b64decode(data))
     print(f"PDF-File '{file_path}\\{file_name}.pdf' was created.")
 
-def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
+def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie=''):
     with open('temp/temp.html', 'w', encoding='utf-8') as file:
         file.write(sdriver.page_source)
     replace_css_file_links('temp/temp.html')
@@ -57,7 +57,7 @@ def print_artemis_exercise_to_pdf(exercise_name, cookie=''):
     download_remote_images_and_replace_links('temp/temp.html', 'temp/temp.html', str(Path().absolute()) + '/temp/', cookie=cookie)
     temp_driver = chrome_wrapper.get_chromedriver()
     temp_driver.get(Path().absolute().joinpath('temp/temp.html').as_uri())
-    print_using_selenium_method(temp_driver, exercise_name, str(download_dir.joinpath(exercise_name)))
+    print_using_selenium_method(temp_driver, exercise_name, str(exercise_download_dir))
     temp_driver.quit()
 
 
