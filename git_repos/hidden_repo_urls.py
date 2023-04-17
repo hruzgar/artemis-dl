@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from browser import sdriver
+from utils.browser import sdriver
 
 def get_hidden_repo_urls():
     all_a_tags = sdriver.find_elements(By.TAG_NAME, 'a')

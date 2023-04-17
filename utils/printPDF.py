@@ -5,8 +5,9 @@ import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
 from pathlib import Path
 from bs4 import BeautifulSoup
-from browser import sdriver
-from const import download_dir, temp_dir
+from utils.browser import sdriver
+from config import download_dir, temp_dir
+import element_paths
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -87,38 +88,40 @@ def replace_css_file_links(soup):
 def remove_unnecessary_elements(soup):
     ###
     # Remove Results Bar if exists
-    first = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div.row.mb-2.mt-2.align-items-baseline.d-none.d-md-flex')
-    if len(first) != 0: first[0].decompose()
-    second = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div:nth-child(2)')
-    if len(second) != 0: second[0].decompose()
-    third = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div:nth-child(1) > div:nth-child(3)')
-    if len(third) != 0: third[0].decompose()
+    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_1)
+    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_2)
+    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_3)
 
     ###
-    soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > nav')[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
-    soup.css.select('body > jhi-main > div > div:nth-child(2) > jhi-navbar > div > div > ol')[0].decompose() # Index (Zeigt 'Courses > Prakti..')
+    soup.css.select(element_paths.exercise_navbar)[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
+    soup.css.select(element_paths.exercise_path_row)[0].decompose() # Index (Zeigt 'Courses > Prakti..')
     
     # 'Assessment:automatic'
-    fourth = soup.css.select('#exercise-header > div.left-col > div.points-assessment-row.ng-star-inserted > span:nth-child(2)')
-    if len(fourth) != 0: fourth[0].decompose()
+    remove_with_selector_if_exists(soup, element_paths.exercise_assessment_text)
 
-    due_things = soup.css.select('#exercise-header > div.right-col > div') # Submission due: ..
+    due_things = soup.css.select(element_paths.exercise_due_date_rows) # Submission due: ..
     for due_thing in due_things:
         due_thing.decompose()
 
-    soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.tab-bar.tab-bar-exercise-details.ps-3.pe-3.justify-content-end')[0].decompose() # Clone Repository part
+    soup.css.select(element_paths.exercise_clone_row)[0].decompose() # Clone Repository part
     ###
     # remove 'Tasks' part, if exists
-    fifth = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div:nth-child(1) > div > jhi-programming-exercise-instructions > div > jhi-programming-exercise-instructions-step-wizard')
-    if len(fifth) != 0: fifth[0].decompose()
+    remove_with_selector_if_exists(soup, element_paths.exercise_tasks_row)
+
     ###
     # remove Community Field if exists
-    list = soup.css.select('body > jhi-main > div > div.card > div > jhi-course-exercise-details > div > div.row > div.col.d-flex.flex-grow-1.justify-end')
-    if len(list) != 0:
-        list[0].decompose()
+    remove_with_selector_if_exists(soup, element_paths.exercise_community_field)
+
     ###
-    soup.css.select('body > jhi-main > div > jhi-footer')[0].decompose() # Footer (About, Privacy und so ganz unten)
+    soup.find('jhi-footer').decompose()
+    # soup.css.select(soup, element_paths.exercise_footer)[0].decompose() # Footer (About, Privacy und so ganz unten)
     return soup
+
+def remove_with_selector_if_exists(soup, css_selector):
+    elements = soup.css.select(css_selector)
+    if len(elements) != 0: elements[0].decompose()
+    return soup
+
 
 def download_image(url, local_directory, cookie):
     response = requests.get(url, headers={"cookie": cookie})

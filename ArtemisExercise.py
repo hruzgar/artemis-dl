@@ -1,22 +1,22 @@
 import time
-import printPDF
+from utils import printPDF, utils
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from browser import sdriver
+from utils.browser import sdriver
 from git_repos.clone_repos import clone_all_repos
 from git_repos.obvious_repo_urls import get_obvious_repo_urls
 from git_repos.hidden_repo_urls import get_hidden_repo_urls
-import utils
-import const
+import config
 
 class ArtemisExercise:
     def __init__(self, course_name, exercise_name, exercise_link):
         self.course_name = course_name
         self.exercise_name = exercise_name
         self.exercise_link = exercise_link
-        self.exercise_download_path = const.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(utils.slugify(self.exercise_name))
+        self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
+            utils.slugify(self.exercise_name))
 
     def open(self):
         sdriver.get(self.exercise_link)
@@ -28,7 +28,7 @@ class ArtemisExercise:
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
-        printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path,cookie=cookie)
+        printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
     def download_exercise(self):
         self.print_exercise_to_pdf()
@@ -39,7 +39,7 @@ class ArtemisExercise:
         clone_all_repos(repo_urls=self.repo_urls, local_download_dir=self.exercise_download_path)
 
     def collapse_all_parts(self):
-        summary_tags = sdriver.find_elements(By.TAG_NAME, 'summary')
+        summary_tags = sdriver.find_elements(By.TAG_NAME, 'details')
         for summary_tag in summary_tags:
             sdriver.execute_script("arguments[0].scrollIntoView();", summary_tag)
             time.sleep(0.7)

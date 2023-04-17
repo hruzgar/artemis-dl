@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from . ArtemisCourse import ArtemisCourse
-from browser import sdriver
+from utils.browser import sdriver
 
 class ArtemisMainPage:
     def scrape_courses_to_class_list(self):
