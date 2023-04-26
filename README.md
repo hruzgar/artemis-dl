@@ -20,13 +20,18 @@ There is currently **3 supported Ways** to use this scraper. Use whichever you p
 - [Google-Chrome](https://www.google.com/chrome/)
 - [Git](https://git-scm.com/download/win) (should be in PATH)
 #### Installation
-1. Download binary artemis-dl.exe
+1. [Download binary](https://github.com/hruzgar/artemis-dl/releases/latest/download/artemis-dl_x86.exe)
 2. Open "Windows Terminal" or "cmd.exe" and navigate to the folder, in which the binary exists.
+```cmd
+cd C:\path\to\folder
+```
 3. Now run 
 ```cmd
-artemis-dl.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
-artemis-dl.exe dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
+artemis-dl_x86.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
+artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
+### you can also specify download location with adding '--download-path YOUR_DOWNLOAD_PATH' to the end of the command. Otherwise a folder named 'downloads' will be created in the location of the binary file. 
 ```
+4. Enjoy 🥳😝
 
 ## 2. Run from source code (Windows)
 #### Prerequisites
