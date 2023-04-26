@@ -1,4 +1,4 @@
-# Features
+# 😋 Features
 - Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
   
 - Can be used to download full Artemis-Courses with one command 🤯
@@ -12,7 +12,7 @@
 7. finds all repositories on exercise-page and clones them (hidden repositories like test-repos etc are included)
 8. Puts all files into a nicely named folder 🥰
 9. Lets you enjoy all your exercises in the future 🤩
-# How to use
+# 🐍 How to use
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable.
 
 ## 1. Use preconfigured binary (Windows)(recommended)
@@ -24,11 +24,11 @@ There is currently **3 supported Ways** to use this scraper. Use whichever you p
 2. Open "Windows Terminal" or "cmd.exe" and navigate to the folder, in which the binary exists.
 3. Now run 
 ```cmd
-artemis-dl.exe dl-course --link "COURSE_LINK" # Showcase
-artemis-dl.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
+artemis-dl.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
+artemis-dl.exe dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ```
 
-## 2. Use from source code (Windows)
+## 2. Run from source code (Windows)
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
 - [Git](https://git-scm.com/download/win) (should be in PATH)
@@ -57,10 +57,10 @@ pip install -r requirements.txt
 ```
 6. Finally run Scraper!
 ```cmd
-python main.py dl-course --link "COURSE_LINK" # Showcase
-python main.py dl-course --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
+python main.py dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
+python main.py dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ```
-## 3. Use from source code (Linux)
+## 3. Run from source code (Linux)
 #### Prerequisits
 - Google-Chrome
 - Git
@@ -86,10 +86,11 @@ pip install -r requirements.txt
 ```
 5. Run Scraper
 ```bash
-python3 main.py dl-course --link "https://artemis.in.tum.de/courses/201/exercises"
+python3 main.py dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
+python3 main.py dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ```
 
-# FAQ
+# 🙋‍♀️FAQ
 ### Which courses are supported?
 Currently only 2 courses are officially supported. These are:
 - [Praktikum: Grundlagen der Programmierung WS22/23](https://artemis.in.tum.de/courses/201/exercises)
