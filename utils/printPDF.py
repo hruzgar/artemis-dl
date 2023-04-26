@@ -83,7 +83,8 @@ def replace_css_file_links(soup):
     # changes the 'link' tags in the html file to direct to my custom css files (for dark mode)
     for link_tag in soup.find_all('link'):
         if (link_tag['rel'][0] != 'stylesheet'): continue
-        link_tag['href'] = Path().absolute().as_uri() + '/' + link_tag['href']
+        # link_tag['href'] = Path().absolute().as_uri() + '/' + link_tag['href']
+        link_tag['href'] = 'http://hruzgar.com/artemis-dl-css/' + link_tag['href']
     return soup    
 
 def remove_unnecessary_elements(soup):
