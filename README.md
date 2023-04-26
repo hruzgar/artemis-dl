@@ -35,9 +35,7 @@ python -m venv C:\path\to\project_folder
 ```
 4. Activate the created envoirement. Navigate to the now created 'Scripts' folder in your project and run activate
 ```cmd
-cd Scripts
-activate
-cd ..
+.\Scripts\activate
 ```
 5. Install all dependencies from requirements.txt file with
 ```cmd
