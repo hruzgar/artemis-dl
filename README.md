@@ -1,6 +1,6 @@
 # 😋 Features
 - Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
-  
+   
 - Can be used to download full Artemis-Courses with one command 🤯
 ### What does it do?
 1. Logs in into Artemis
