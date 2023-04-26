@@ -19,3 +19,6 @@ def slugify(value, allow_unicode=False):
         )
     value = re.sub(r"[^\w\s-]", "", value)
     return re.sub(r"[-\s]+", "-", value).strip("-_")
+
+def printer(message):
+    print(f'[artemis-dl] {message}')

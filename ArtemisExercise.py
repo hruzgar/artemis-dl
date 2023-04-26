@@ -9,14 +9,13 @@ from git_repos.clone_repos import clone_all_repos
 from git_repos.obvious_repo_urls import get_obvious_repo_urls
 from git_repos.hidden_repo_urls import get_hidden_repo_urls
 import config
+from utils.utils import printer
 
 class ArtemisExercise:
-    def __init__(self, course_name, exercise_name, exercise_link):
+    def __init__(self, exercise_link, course_name=None, exercise_name=None):
+        self.exercise_link = exercise_link
         self.course_name = course_name
         self.exercise_name = exercise_name
-        self.exercise_link = exercise_link
-        self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
-            utils.slugify(self.exercise_name))
 
     def open(self):
         sdriver.get(self.exercise_link)
@@ -25,6 +24,18 @@ class ArtemisExercise:
         except TimeoutException:
             print("Exercise Loading took too much time!")
         time.sleep(1)
+
+        if self.exercise_name is None: self.get_exercise_name
+        if self.get_course_name is None: self.get_course_name
+        self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
+            utils.slugify(self.exercise_name))
+
+    def get_exercise_name(self):
+        self.exercise_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
+
+    def get_course_name(self):
+        self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
+
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']

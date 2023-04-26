@@ -5,20 +5,28 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from ArtemisExercise import ArtemisExercise
 from utils.browser import sdriver
+from utils.utils import printer
 
 class ArtemisCourse:
-    def __init__(self, course_name, course_link):
+    def __init__(self, course_link, course_name=None):
         self.course_name = course_name
         self.course_link = course_link
 
     def open(self):
+        printer(f"Opening Course-Page")
         sdriver.get(self.course_link)
         try:
             WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
         except TimeoutException:
             print("Course-Site Loading took too much time!")
+        time.sleep(1)
+        if self.course_name is None: self.get_course_name()
+        printer(f'Course-Page "{self.course_name}" opened')
         self.collapse_all_exercises()
         self.scrape_exercises_to_class_list()
+    
+    def get_course_name(self):
+        self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#course-header-title').text
 
     def scrape_exercises_to_class_list(self):
         temp_exercises = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
@@ -27,7 +35,7 @@ class ArtemisCourse:
             exercise_card_element = temp_exercises[counter]
             exercise_name = exercise_card_element.find_element(By.XPATH, './div/div[2]/div[1]/div[2]/h4').text
             exercise_link = exercise_card_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
-            temp_exercise = ArtemisExercise(self.course_name, exercise_name, exercise_link)
+            temp_exercise = ArtemisExercise(exercise_link=exercise_link, course_name=self.course_name, exercise_name=exercise_name)
             self.exercises.append(temp_exercise)
     
     def download_one_exercise(self):
@@ -37,25 +45,26 @@ class ArtemisCourse:
 
     def download_all_exercises(self):
         for counter in range(len(self.exercises)):
+            printer(f'{counter + 1}/{len(self.exercises)}: Downloading Exercise "{self.exercises[counter].exercise_name}"')
             start = time.time()
             self.exercises[counter].open()
             self.exercises[counter].collapse_all_parts()
             self.exercises[counter].download_exercise()
             end = time.time()
             elapsed_time = round(end - start)
-            print(f'Downloaded {counter + 1}/{len(self.exercises)} in {elapsed_time} seconds: {self.exercises[counter].exercise_name}')
+            printer(f'Successful! Downloaded in {elapsed_time} seconds\n')
+            
 
         
     def collapse_all_exercises(self):
+        printer("Collapsing exercises on course-page... (~15-90s)")
         exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')
         exercise_list_elements.pop(0) # deletes search bar from element list
-        print(len(exercise_list_elements))
         for t in exercise_list_elements:
             svg_element = t.find_element(By.TAG_NAME, 'svg')
             icon_state = svg_element.get_attribute("data-icon")
             sdriver.execute_script("arguments[0].scrollIntoView();", svg_element)
-            time.sleep(0.7)
+            time.sleep(1)
             if icon_state == 'angle-down':
                 t.click()
                 # time.sleep(2)
-                print('clicked')

@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from utils.browser import sdriver
 from config import download_dir, temp_dir
 import element_paths
+from utils.utils import printer
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -48,7 +49,7 @@ def print_using_selenium_method(driver, file_name, file_path=''):
     os.makedirs(file_path, exist_ok=True)
     with open(f'{file_path}\\{file_name}.pdf', 'wb') as file:
         file.write(base64.b64decode(data))
-    print(f"PDF-File '{file_path}\\{file_name}.pdf' was created.")
+    printer(f'Creating pdf file "{file_name}.pdf"')
 
 def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie=''):
     soup = BeautifulSoup(sdriver.page_source, 'html.parser')
