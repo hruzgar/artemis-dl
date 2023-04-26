@@ -5,7 +5,7 @@ There is currently **3 supported Ways** to use this scraper. Use whichever you p
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
 - [Git](https://git-scm.com/download/win) (should be in PATH)
-***
+#### Installation
 1. Download binary artemis-dl.exe
 2. Open "Windows Terminal" or "cmd.exe" and navigate to the folder, in which the binary exists.
 3. Now run 
@@ -20,7 +20,7 @@ artemis-dl.exe dl-course --link "https://artemis.in.tum.de/courses/201/exercises
 - [Git](https://git-scm.com/download/win) (should be in PATH)
 - [python](https://www.python.org/downloads/windows/)
 - venv (should be installed together with python)
-***
+#### Installation
 1. Clone Repository to your local computer with
 ```cmd
 git clone https://github.com/hruzgar/artemis-dl.git
@@ -54,7 +54,7 @@ python main.py dl-course --link "https://artemis.in.tum.de/courses/201/exercises
 - Git
 - python3
 - venv for python
-***
+#### Installation
 1. Clone Repo
 ```bash
 git clone https://github.com/hruzgar/artemis-dl.git
