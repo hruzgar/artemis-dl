@@ -58,7 +58,7 @@ class ArtemisCourse:
 
         
     def collapse_all_exercises(self):
-        printer("Collapsing exercises on course-page... (~15-90s)")
+        printer("Collapsing exercises on course-page... ([bold red]~15-90s[/])")
         exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')
         exercise_list_elements.pop(0) # deletes search bar from element list
         for t in exercise_list_elements:

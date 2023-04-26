@@ -1,4 +1,5 @@
 import unicodedata
+from rich import print
 import re
 
 def slugify(value, allow_unicode=False):
@@ -21,7 +22,7 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 def printer(message):
-    print(f'[artemis-dl] {message}')
+    print(f'[bold red]\[artemis-dl][/] {message}')
 
 def is_tum_ID(my_str):
     if len(my_str) != 7: return False
