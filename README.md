@@ -94,7 +94,10 @@ pip install -r requirements.txt
 python3 main.py dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link COURSE_LINK # Showcase
 python3 main.py dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ```
-
+# 🚂 Roadmap
+- Generate html file for exercises
+   - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
+   - Possible obstacles: html file might get too big.
 # 🙋‍♀️FAQ
 ### Which courses are supported?
 Currently only 2 courses are officially supported. These are:
@@ -106,3 +109,4 @@ Other courses might also work but weren't tested. If this scraper works for your
 You can get the course-link of your course, if you open your Artemis Course-Page from any browser and copy the link. 
 
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
+
