@@ -44,6 +44,7 @@ class ArtemisCourse:
         self.exercises[exercise_num].download_exercise()
 
     def download_all_exercises(self):
+        print()
         for counter in range(len(self.exercises)):
             printer(f'{counter + 1}/{len(self.exercises)}: Downloading Exercise "{self.exercises[counter].exercise_name}"')
             start = time.time()
