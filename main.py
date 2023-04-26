@@ -11,16 +11,16 @@ app = typer.Typer()
 
 
 
-@app.command()
-def dl_exercise(link: str = typer.Option(...)):
-    sdriver.get('https://artemis.in.tum.de/')
-    Artemis.enable_dark_mode()
-    Artemis.login()
-    time.sleep(2)
-    exercise = ArtemisExercise(exercise_link=link)
-    exercise.open()
-    exercise.collapse_all_parts()
-    exercise.download_exercise()
+# @app.command()
+# def dl_exercise(link: str = typer.Option(...)):
+#     sdriver.get('https://artemis.in.tum.de/')
+#     Artemis.enable_dark_mode()
+#     Artemis.login()
+#     time.sleep(2)
+#     exercise = ArtemisExercise(exercise_link=link)
+#     exercise.open()
+#     exercise.collapse_all_parts()
+#     exercise.download_exercise()
 
 @app.command()
 def dl_course(
