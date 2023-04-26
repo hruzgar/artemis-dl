@@ -1,7 +1,7 @@
 from pathlib import Path
 import config
-username = ''
-password = '' 
+username = '***REMOVED***'
+password = '***REMOVED***' 
 download_dir = Path().absolute().joinpath('downloads')
 temp_dir = Path().absolute().joinpath('temp')
 
