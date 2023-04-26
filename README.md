@@ -1,7 +1,18 @@
 # Features
 - Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
+  
 - Can be used to download full Artemis-Courses with one command 🤯
-# How to install
+### What does it do?
+1. Logs in into Artemis
+2. Crawls all exercises for specified course
+3. Repeatedly does Step 4-8
+4. Downloads html of exercise-page
+5. injects custom-css into html-page
+6. prints html to pdf
+7. finds all repositories on exercise-page and clones them (hidden repositories like test-repos etc are included)
+8. Puts all files into a nicely named folder 🥰
+9. Lets you enjoy all your exercises in the future 🤩
+# How to use
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable.
 
 ## 1. Use preconfigured binary (Windows)(recommended)
@@ -87,3 +98,5 @@ Currently only 2 courses are officially supported. These are:
 Other courses might also work but weren't tested. If this scraper works for your course please send an email to [haso@ruezgar.de](mailto:haso@ruezgar.de) so i can add it to the list. If your course does not work with this scraper you could also send an email or just contribute to the project.
 ### What is a course-link?
 You can get the course-link of your course, if you open your Artemis Course-Page from any browser and copy the link. 
+
+If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
