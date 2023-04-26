@@ -136,6 +136,7 @@ def download_image(url, local_directory, cookie):
 
 def download_remote_images_and_replace_links(soup, local_directory, cookie):
     # finds all 'img' tags in html file, downloads the images and replaces the href to local image file
+    os.makedirs(local_directory, exist_ok=True)
     for img_tag in soup.find_all('img'):
         if (img_tag['src'][0] == '/'):
             image_url = 'https://artemis.in.tum.de' + img_tag['src']

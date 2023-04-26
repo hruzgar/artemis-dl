@@ -8,14 +8,9 @@ from utils.browser import sdriver
 app = typer.Typer()
 
 
-@app.command()
-def hello(name: str):
-    print(f"Hello {name}")
-
 
 @app.command()
 def dl_exercise(link: str = typer.Option(...)):
-    time.sleep(1)
     sdriver.get('https://artemis.in.tum.de/')
     Artemis.enable_dark_mode()
     Artemis.login()

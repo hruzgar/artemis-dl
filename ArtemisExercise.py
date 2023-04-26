@@ -25,8 +25,8 @@ class ArtemisExercise:
             print("Exercise Loading took too much time!")
         time.sleep(1)
 
-        if self.exercise_name is None: self.get_exercise_name
-        if self.get_course_name is None: self.get_course_name
+        if self.exercise_name is None: self.get_exercise_name()
+        if self.course_name is None: self.get_course_name()
         self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
             utils.slugify(self.exercise_name))
 

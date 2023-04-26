@@ -1,4 +1,7 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 from utils.browser import sdriver
 import config
 
@@ -11,6 +14,10 @@ def login():
     login_button.click()
 
 def enable_dark_mode():
+    try:
+        WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="theme-toggle"]')))
+    except TimeoutException:
+        print("Course-Site Loading took too much time!")
     theme_selector = sdriver.find_element(By.XPATH, '//*[@id="theme-toggle"]')
     if theme_selector.get_attribute('class') != 'theme-toggle dark':
         theme_selector.click()
