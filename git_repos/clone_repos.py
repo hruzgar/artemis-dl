@@ -8,7 +8,7 @@ def clone_git_https_repo_with_credentials(repo_url, destination_dir):
     repo_url = '/'.join(splitted_url)
     repo_name = repo_url.split('/')[-1].split('.')[0]
     printer(f'Cloning repo "{repo_name}"')
-    repo_url_with_credentials = repo_url.replace("https://", f"https://{config.student_id}:{config.password}@")
+    repo_url_with_credentials = repo_url.replace("https://", f"https://{config.username}:{config.password}@")
     try:
         git.Repo.clone_from(repo_url_with_credentials, destination_dir.joinpath(repo_name))
     except:

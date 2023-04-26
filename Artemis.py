@@ -9,7 +9,7 @@ def login():
     user_name = sdriver.find_element(By.NAME, "username")
     password = sdriver.find_element(By.NAME, "password")
     login_button = sdriver.find_element(By.ID, "login-button")
-    user_name.send_keys(config.student_id)
+    user_name.send_keys(config.username)
     password.send_keys(config.password)
     login_button.click()
 
