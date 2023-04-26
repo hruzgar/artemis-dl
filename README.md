@@ -3,8 +3,8 @@ There is currently **3 supported Ways** to use this scraper. Use whichever you p
 
 ## 1. Use preconfigured binary (Windows)(recommended)
 #### Prerequisites
-1. [Google-Chrome](https://www.google.com/chrome/)
-2. [Git](https://git-scm.com/download/win) (should be in PATH)
+- [Google-Chrome](https://www.google.com/chrome/)
+- [Git](https://git-scm.com/download/win) (should be in PATH)
 ***
 1. Download binary artemis-dl.exe
 2. Open "Windows Terminal" or "cmd.exe" and navigate to the folder, in which the binary exists.
@@ -16,10 +16,10 @@ artemis-dl.exe dl-course --link "https://artemis.in.tum.de/courses/201/exercises
 
 ## 2. Use from source code (Windows)
 #### Prerequisites
-1. [Google-Chrome](https://www.google.com/chrome/)
-2. [Git](https://git-scm.com/download/win) (should be in PATH)
-3. [python](https://www.python.org/downloads/windows/)
-4. venv (should be installed together with python)
+- [Google-Chrome](https://www.google.com/chrome/)
+- [Git](https://git-scm.com/download/win) (should be in PATH)
+- [python](https://www.python.org/downloads/windows/)
+- venv (should be installed together with python)
 ***
 1. Clone Repository to your local computer with
 ```cmd
@@ -50,10 +50,10 @@ python main.py dl-course --link "https://artemis.in.tum.de/courses/201/exercises
 ```
 ## 3. Use from source code (Linux)
 #### Prerequisits
-1. Google-Chrome
-2. Git
-3. python3
-4. venv for python
+- Google-Chrome
+- Git
+- python3
+- venv for python
 ***
 1. Clone Repo
 ```bash
