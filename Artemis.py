@@ -4,6 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from utils.browser import sdriver
 import config
+import time
 
 def login():
     user_name = sdriver.find_element(By.NAME, "username")
@@ -12,6 +13,12 @@ def login():
     user_name.send_keys(config.username)
     password.send_keys(config.password)
     login_button.click()
+
+    try:
+        WebDriverWait(sdriver, 6).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#account-menu')))
+    except TimeoutException:
+        return False
+    return True
 
 def enable_dark_mode():
     try:

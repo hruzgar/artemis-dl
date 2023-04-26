@@ -22,3 +22,18 @@ def slugify(value, allow_unicode=False):
 
 def printer(message):
     print(f'[artemis-dl] {message}')
+
+def is_tum_ID(my_str):
+    if len(my_str) != 7: return False
+    first_part = my_str[:2]
+    second_part = my_str[2:4]
+    third_part = my_str[4:]
+    if first_part.islower() is False or first_part.isalpha() is False: return False
+    if second_part.isnumeric() is False or second_part.isnumeric() is False: return False
+    if third_part.islower() is False or third_part.isalpha() is False: return False
+    return True
+
+def is_valid_artemis_course_link(my_str):
+    pattern = re.compile(r'^https://artemis\.in\.tum\.de/courses/\d+/exercises(/(\d+))?$')
+    if pattern.match(my_str): return True
+    return False
