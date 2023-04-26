@@ -1,3 +1,6 @@
+# Features
+- Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
+- Can be used to download full Artemis-Courses with one command 🤯
 # How to install
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable.
 
@@ -11,7 +14,7 @@ There is currently **3 supported Ways** to use this scraper. Use whichever you p
 3. Now run 
 ```cmd
 artemis-dl.exe dl-course --link "COURSE_LINK" # Showcase
-artemis-dl.exe dl-course --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
+artemis-dl.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ```
 
 ## 2. Use from source code (Windows)
