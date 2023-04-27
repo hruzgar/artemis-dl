@@ -48,11 +48,11 @@ git clone https://github.com/hruzgar/artemis-dl.git
 ```cmd
 cd C:\path\to\project_folder
 ```
-3. Create a new venv envoirenment with
+3. Create a new venv envoirenment inside project folder
 ```cmd
-python -m venv C:\path\to\project_folder
+python -m venv .
 ```
-4. Activate the created envoirement. Navigate to the now created 'Scripts' folder in your project and run activate
+4. Activate the created envoirement
 ```cmd
 .\Scripts\activate
 ```
