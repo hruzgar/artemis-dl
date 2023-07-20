@@ -109,7 +109,7 @@ def remove_unnecessary_elements(soup):
     for due_thing in due_things:
         due_thing.decompose()
 
-    soup.css.select(element_paths.exercise_clone_row)[0].decompose() # Clone Repository part
+    remove_with_selector_if_exists(soup, element_paths.exercise_clone_row) # Clone Repository part
     ###
     # remove 'Tasks' part, if exists
     remove_with_selector_if_exists(soup, element_paths.exercise_tasks_row)
