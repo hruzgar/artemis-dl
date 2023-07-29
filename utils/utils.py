@@ -1,6 +1,8 @@
 import unicodedata
 from rich import print
 import re
+import utils.browser
+from selenium.webdriver.common.by import By
 
 def slugify(value, allow_unicode=False):
     """
@@ -38,3 +40,27 @@ def is_valid_artemis_course_link(my_str):
     pattern = re.compile(r'^https://artemis\.in\.tum\.de/courses/\d+/exercises(/(\d+))?$')
     if pattern.match(my_str): return True
     return False
+
+
+def get_exercise_tags_on_page():
+    exercise_tags = []
+
+    exercise_header = utils.browser.sdriver.find_element(By.CSS_SELECTOR, '#exercise-header')
+    header_text = exercise_header.text.lower()
+    if 'bonus' in header_text:
+        exercise_tags.append('bonus')
+    if 'homework' in header_text:
+        exercise_tags.append('homework')
+    if 'optional' in header_text:
+        exercise_tags.append('optional')
+    if 'tutorial' in header_text:
+        exercise_tags.append('tutorial')
+    if 'side project' in header_text:
+        exercise_tags.append('side project')
+    if 'easy' in header_text:
+        exercise_tags.append('easy')
+    if 'medium' in header_text:
+        exercise_tags.append('medium')
+    if 'hard' in header_text:
+        exercise_tags.append('hard')
+    return exercise_tags

@@ -16,6 +16,7 @@ class ArtemisExercise:
         self.exercise_link = exercise_link
         self.course_name = course_name
         self.exercise_name = exercise_name
+        self.exercise_tags = []
 
     def open(self):
         sdriver.get(self.exercise_link)
@@ -29,13 +30,31 @@ class ArtemisExercise:
         if self.course_name is None: self.get_course_name()
         self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
             utils.slugify(self.exercise_name))
+        self.get_exercise_tags()
+        if 'optional' in self.exercise_tags and 'homework' not in self.exercise_tags:
+            self.exercise_download_path = config.download_dir.joinpath('optional').joinpath(utils.slugify(self.course_name)).joinpath(
+            utils.slugify(self.exercise_name))
+
 
     def get_exercise_name(self):
         self.exercise_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
 
     def get_course_name(self):
         self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
-
+    
+    def get_exercise_tags(self):
+        self.exercise_tags = utils.get_exercise_tags_on_page()
+        if 'hard' in self.exercise_tags:
+            self.exercise_tags.remove('hard')
+            self.exercise_difficulty = 'hard'
+        elif 'medium' in self.exercise_tags:
+            self.exercise_tags.remove('medium')
+            self.exercise_difficulty = 'medium'
+        elif 'easy' in self.exercise_tags:
+            self.exercise_tags.remove('easy')
+            self.exercise_difficulty = 'easy'
+        else:
+            self.exercise_difficulty = 'unknown'
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
