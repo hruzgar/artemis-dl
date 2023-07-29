@@ -57,6 +57,8 @@ def get_exercise_tags_on_page():
         exercise_tags.append('tutorial')
     if 'side project' in header_text:
         exercise_tags.append('side project')
+    if 'quiz' in header_text:
+        exercise_tags.append('quiz')
     if 'easy' in header_text:
         exercise_tags.append('easy')
     if 'medium' in header_text:

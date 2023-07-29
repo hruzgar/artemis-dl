@@ -32,7 +32,7 @@ class ArtemisExercise:
             utils.slugify(self.exercise_name))
         self.get_exercise_tags()
         if 'optional' in self.exercise_tags and 'homework' not in self.exercise_tags:
-            self.exercise_download_path = config.download_dir.joinpath('optional').joinpath(utils.slugify(self.course_name)).joinpath(
+            self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath('optional').joinpath(
             utils.slugify(self.exercise_name))
 
 
@@ -61,6 +61,9 @@ class ArtemisExercise:
         printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
     def download_exercise(self):
+        if 'quiz' in self.exercise_tags:
+            printer('Skipping quiz')
+            return
         self.print_exercise_to_pdf()
         self.clone_repos()
 
