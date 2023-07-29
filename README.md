@@ -100,6 +100,8 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
    - Possible obstacles: html file might get too big.
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
+- Big Refactor
+   - Current Codebase is working which is really good. However it's not really well organised and doesn't have a good structure. Big.. very Big refactor incoming..
 # 🙋‍♀️FAQ
 ### Which courses are supported?
 Currently only 2 courses are officially supported. These are:
