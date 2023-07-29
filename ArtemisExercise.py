@@ -1,5 +1,5 @@
 import time
-from utils import printPDF, utils
+from utils import printPDF, utils, exercise_page_dl
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -59,6 +59,11 @@ class ArtemisExercise:
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
         printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
+
+    def download_webpage(self):
+        cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
+        exercise_page_dl.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
+
 
     def download_exercise(self):
         if 'quiz' in self.exercise_tags:
