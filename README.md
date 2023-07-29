@@ -98,6 +98,8 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 - Generate html file for exercises
    - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
    - Possible obstacles: html file might get too big.
+- Download Quizzes
+   - Currently quizzes are directly skipped if found.
 # 🙋‍♀️FAQ
 ### Which courses are supported?
 Currently only 2 courses are officially supported. These are:
