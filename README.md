@@ -4,7 +4,7 @@
 - Can be used to download full Artemis-Courses with one command 🤯
 
 
-# 🐍 How to use
+# 🐍 How to install and use
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable (only works on Windows).
 
 <details><summary><h2>1. Use preconfigured binary (Windows)(recommended)</h2></summary>
