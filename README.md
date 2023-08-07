@@ -126,7 +126,7 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 - Big Refactor
    - Current Codebase is working which is really good. However it's not really well organised and doesn't have a good structure. Big.. very Big refactor incoming..
 
-<details><summary><h1>🐤 How does it work?</h1></summary>
+<details><summary><h1>🎥 Behind the scenes</h1></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
