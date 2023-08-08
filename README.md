@@ -7,7 +7,7 @@
 # 🐍 How to install and use
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable (only works on Windows).
 
-<details><summary><h2>1. Use preconfigured binary (Windows)(recommended)</h2></summary>
+<details><summary><h3>1. Use preconfigured binary (Windows)(recommended)</h3></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -27,7 +27,7 @@ artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "http
 4. Enjoy 🥳😝
 </details>
 <details>
-<summary><h2>2. Run from source code (Windows)</h2></summary>
+<summary><h3>2. Run from source code (Windows)</h3></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -62,7 +62,7 @@ python main.py dl-course --username ab12cde --password 12345678 --link "https://
 ```
 
 </details>
-<details><summary><h2>3. Run from source code (Linux)</h2></summary>
+<details><summary><h3>3. Run from source code (Linux)</h3></summary>
 
 #### Prerequisits
 - Google-Chrome
