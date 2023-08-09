@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from . ArtemisCourse import ArtemisCourse
+from . course_page import ArtemisCourse
 from utils.browser import sdriver
 
 class ArtemisMainPage:

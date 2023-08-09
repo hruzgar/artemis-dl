@@ -1,6 +1,6 @@
 import git
-import config;
-from utils.utils import printer
+from utils import config
+from utils.print import printer
 
 def clone_git_https_repo_with_credentials(repo_url, destination_dir):
     splitted_url = repo_url.split('/')

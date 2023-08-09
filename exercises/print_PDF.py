@@ -3,12 +3,11 @@ import time
 import requests
 import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
-from pathlib import Path
 from bs4 import BeautifulSoup
 from utils.browser import sdriver
-from config import download_dir, temp_dir
-import element_paths
-from utils.utils import printer
+from utils.config import temp_dir
+import exercises.element_paths as element_paths
+from utils.print import printer
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed

@@ -1,12 +1,12 @@
 from pathlib import Path
-import config
 username = ''
 password = '' 
-download_dir = Path().absolute().joinpath('downloads')
-temp_dir = Path().absolute().joinpath('temp')
+download_dir = Path().absolute().joinpath('../downloads')
+temp_dir = Path().absolute().joinpath('../temp')
 
 
 def setup(username, password, download_dir):
+    import utils.config as config
     config.username = username
     config.password = password
     if download_dir != '':

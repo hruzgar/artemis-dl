@@ -1,10 +1,10 @@
 from selenium import webdriver
-from utils.utils import printer
+from utils.print import printer
 
 def get_chromedriver():
     printer('Opening Browser..')
     options = webdriver.ChromeOptions()
-    options.headless = True
+    options.headless = False
     options.add_argument('--no-sandbox')
     options.add_argument('--start-maximized')
     options.add_argument('--disable-popup-blocking')

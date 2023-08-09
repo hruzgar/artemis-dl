@@ -1,15 +1,16 @@
 import time
-from utils import printPDF, utils, exercise_page_dl
+from utils import config
+from utils import general_utils as utils
+from exercises import print_PDF, downloader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from utils.browser import sdriver
-from git_repos.clone_repos import clone_all_repos
-from git_repos.obvious_repo_urls import get_obvious_repo_urls
-from git_repos.hidden_repo_urls import get_hidden_repo_urls
-import config
-from utils.utils import printer
+from repos.clone import clone_all_repos
+from repos.obvious_urls import get_obvious_repo_urls
+from repos.hidden_urls import get_hidden_repo_urls
+from utils.print import printer
 
 class ArtemisExercise:
     def __init__(self, exercise_link, course_name=None, exercise_name=None):
@@ -58,11 +59,11 @@ class ArtemisExercise:
 
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
-        printPDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
+        print_PDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
     def download_webpage(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
-        exercise_page_dl.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
+        downloader.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
 
 
     def download_exercise(self):

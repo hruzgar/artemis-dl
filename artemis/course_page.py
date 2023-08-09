@@ -3,9 +3,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from ArtemisExercise import ArtemisExercise
+from artemis.exercise_page import ArtemisExercise
 from utils.browser import sdriver
-from utils.utils import printer
+from utils.print import printer
 
 class ArtemisCourse:
     def __init__(self, course_link, course_name=None):

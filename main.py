@@ -1,11 +1,11 @@
 import typer
 import time
-from ArtemisCourse import ArtemisCourse
-from ArtemisExercise import ArtemisExercise
-import Artemis
+from artemis.course_page import ArtemisCourse
+from artemis import core
 from utils.browser import sdriver
-from config import setup
-from utils.utils import printer, is_tum_ID, is_valid_artemis_course_link
+from utils.config import setup
+from utils.print import printer
+from utils.general_utils import is_tum_ID, is_valid_artemis_course_link
 
 app = typer.Typer()
 

@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 import os
 import requests
-import element_paths
+import exercises.element_paths as element_paths
 from utils.browser import sdriver
-from utils.utils import printer
+from utils.print import printer
 
 def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
     download_dir = exercise_download_dir.joinpath('Webpage')

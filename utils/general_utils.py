@@ -1,7 +1,7 @@
 import unicodedata
-from rich import print
 import re
-import utils.browser
+# import utils.browser
+from utils.browser import sdriver
 from selenium.webdriver.common.by import By
 
 def slugify(value, allow_unicode=False):
@@ -23,8 +23,6 @@ def slugify(value, allow_unicode=False):
     value = re.sub(r"[^\w\s-]", "", value)
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
-def printer(message):
-    print(f'[bold red]\[artemis-dl][/] {message}')
 
 def is_tum_ID(my_str):
     if len(my_str) != 7: return False
@@ -45,7 +43,7 @@ def is_valid_artemis_course_link(my_str):
 def get_exercise_tags_on_page():
     exercise_tags = []
 
-    exercise_header = utils.browser.sdriver.find_element(By.CSS_SELECTOR, '#exercise-header')
+    exercise_header = sdriver.find_element(By.CSS_SELECTOR, '#exercise-header')
     header_text = exercise_header.text.lower()
     if 'bonus' in header_text:
         exercise_tags.append('bonus')
