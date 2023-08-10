@@ -6,19 +6,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from utils.browser import sdriver
+from utils.decorators import ensure_driver, sdriver
 from repos.clone import clone_all_repos
 from repos.obvious_urls import get_obvious_repo_urls
 from repos.hidden_urls import get_hidden_repo_urls
 from utils.print import printer
 
 class ArtemisExercise:
+
     def __init__(self, exercise_link, course_name=None, exercise_name=None):
         self.exercise_link = exercise_link
         self.course_name = course_name
         self.exercise_name = exercise_name
         self.exercise_tags = []
 
+    @ensure_driver
     def open(self):
         sdriver.get(self.exercise_link)
         try:
@@ -37,9 +39,11 @@ class ArtemisExercise:
             utils.slugify(self.exercise_name))
 
 
+    @ensure_driver
     def get_exercise_name(self):
         self.exercise_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
 
+    @ensure_driver
     def get_course_name(self):
         self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
     
@@ -57,10 +61,12 @@ class ArtemisExercise:
         else:
             self.exercise_difficulty = 'unknown'
 
+    @ensure_driver
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
         print_PDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
+    @ensure_driver
     def download_webpage(self):
         cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
         downloader.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
@@ -77,6 +83,7 @@ class ArtemisExercise:
         self.repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
         clone_all_repos(repo_urls=self.repo_urls, local_download_dir=self.exercise_download_path)
 
+    @ensure_driver
     def collapse_all_parts(self):
         summary_tags = sdriver.find_elements(By.TAG_NAME, 'details')
         for summary_tag in summary_tags:

@@ -2,8 +2,11 @@ from bs4 import BeautifulSoup
 import os
 import requests
 import exercises.element_paths as element_paths
-from utils.browser import sdriver
+# from utils.browser import WebDriverSingleton
+from utils.decorators import ensure_driver, sdriver
 from utils.print import printer
+
+# sdriver = WebDriverSingleton.get_instance()
 
 def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
     download_dir = exercise_download_dir.joinpath('Webpage')

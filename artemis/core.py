@@ -2,10 +2,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
-from utils.browser import sdriver
 from utils import config
+from utils.decorators import ensure_driver, sdriver
+# from utils.browser import WebDriverSingleton
 
+# sdriver = WebDriverSingleton.get_instance()
 
+@ensure_driver
 def login():
     user_name = sdriver.find_element(By.NAME, "username")
     password = sdriver.find_element(By.NAME, "password")
@@ -20,6 +23,7 @@ def login():
         return False
     return True
 
+@ensure_driver
 def enable_dark_mode():
     try:
         WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="theme-toggle"]')))

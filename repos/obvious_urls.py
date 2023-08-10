@@ -1,6 +1,9 @@
 import time
 from selenium.webdriver.common.by import By
-from utils.browser import sdriver
+from utils.browser import WebDriverSingleton
+from utils.decorators import ensure_driver, sdriver
+
+# sdriver = WebDriverSingleton.get_instance()
 
 def get_obvious_repo_urls():
     # only gets practice and personal repo urls.

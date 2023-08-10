@@ -1,8 +1,11 @@
 import unicodedata
 import re
 # import utils.browser
-from utils.browser import sdriver
+# from utils.browser import WebDriverSingleton
+from utils.decorators import ensure_driver, sdriver
 from selenium.webdriver.common.by import By
+
+# sdriver = WebDriverSingleton.get_instance()
 
 def slugify(value, allow_unicode=False):
     """
@@ -40,6 +43,7 @@ def is_valid_artemis_course_link(my_str):
     return False
 
 
+@ensure_driver
 def get_exercise_tags_on_page():
     exercise_tags = []
 

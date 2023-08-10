@@ -4,17 +4,21 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from artemis.exercise_page import ArtemisExercise
-from utils.browser import sdriver
+from utils.browser import WebDriverSingleton
 from utils.print import printer
+from utils.decorators import ensure_driver, sdriver
+
 
 class ArtemisCourse:
+
     def __init__(self, course_link, course_name=None):
         self.course_name = course_name
         self.course_link = course_link
 
+    @ensure_driver
     def open(self):
         printer(f"Opening Course-Page")
-        sdriver.get(self.course_link)
+        self.sdriver.get(self.course_link)
         try:
             WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
         except TimeoutException:
@@ -25,9 +29,11 @@ class ArtemisCourse:
         self.collapse_all_exercises()
         self.scrape_exercises_to_class_list()
     
+    @ensure_driver
     def get_course_name(self):
         self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#course-header-title').text
 
+    @ensure_driver
     def scrape_exercises_to_class_list(self):
         temp_exercises = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
         self.exercises = []
@@ -57,6 +63,7 @@ class ArtemisCourse:
             
 
         
+    @ensure_driver
     def collapse_all_exercises(self):
         printer("Collapsing exercises on course-page... ([bold red]~15-90s[/])")
         exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')

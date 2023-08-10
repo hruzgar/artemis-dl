@@ -4,10 +4,13 @@ import requests
 import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
 from bs4 import BeautifulSoup
-from utils.browser import sdriver
+# from utils.browser import WebDriverSingleton
+from utils.decorators import ensure_driver, sdriver
 from utils.config import temp_dir
 import exercises.element_paths as element_paths
 from utils.print import printer
+
+# sdriver = WebDriverSingleton.get_instance()
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed

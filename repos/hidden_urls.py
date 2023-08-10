@@ -1,5 +1,8 @@
 from selenium.webdriver.common.by import By
-from utils.browser import sdriver
+from utils.decorators import ensure_driver, sdriver
+# from utils.browser import WebDriverSingleton
+
+# sdriver = WebDriverSingleton.get_instance()
 
 def get_hidden_repo_urls():
     all_a_tags = sdriver.find_elements(By.TAG_NAME, 'a')

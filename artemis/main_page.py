@@ -1,6 +1,9 @@
 from selenium.webdriver.common.by import By
 from . course_page import ArtemisCourse
 from utils.browser import sdriver
+from utils.browser import WebDriverSingleton
+
+sdriver = WebDriverSingleton.get_instance()
 
 class ArtemisMainPage:
     def scrape_courses_to_class_list(self):
