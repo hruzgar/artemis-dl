@@ -6,7 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from utils.decorators import ensure_driver, sdriver
+from utils.browser import ensure_driver
+import utils.browser as browser
 from repos.clone import clone_all_repos
 from repos.obvious_urls import get_obvious_repo_urls
 from repos.hidden_urls import get_hidden_repo_urls
@@ -22,9 +23,9 @@ class ArtemisExercise:
 
     @ensure_driver
     def open(self):
-        sdriver.get(self.exercise_link)
+        browser.sdriver.get(self.exercise_link)
         try:
-            WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/jhi-header-exercise-page-with-details/div/div[1]/div[1]/div/span')))
+            WebDriverWait(browser.sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/jhi-header-exercise-page-with-details/div/div[1]/div[1]/div/span')))
         except TimeoutException:
             print("Exercise Loading took too much time!")
         time.sleep(1)
@@ -41,11 +42,11 @@ class ArtemisExercise:
 
     @ensure_driver
     def get_exercise_name(self):
-        self.exercise_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
+        self.exercise_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
 
     @ensure_driver
     def get_course_name(self):
-        self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
+        self.course_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
     
     def get_exercise_tags(self):
         self.exercise_tags = utils.get_exercise_tags_on_page()
@@ -63,12 +64,12 @@ class ArtemisExercise:
 
     @ensure_driver
     def print_exercise_to_pdf(self):
-        cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
+        cookie = 'jwt=' + browser.sdriver.get_cookies()[0]['value']
         print_PDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
     @ensure_driver
     def download_webpage(self):
-        cookie = 'jwt=' + sdriver.get_cookies()[0]['value']
+        cookie = 'jwt=' + browser.sdriver.get_cookies()[0]['value']
         downloader.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
 
 
@@ -85,9 +86,9 @@ class ArtemisExercise:
 
     @ensure_driver
     def collapse_all_parts(self):
-        summary_tags = sdriver.find_elements(By.TAG_NAME, 'details')
+        summary_tags = browser.sdriver.find_elements(By.TAG_NAME, 'details')
         for summary_tag in summary_tags:
-            sdriver.execute_script("arguments[0].scrollIntoView();", summary_tag)
+            browser.sdriver.execute_script("arguments[0].scrollIntoView();", summary_tag)
             time.sleep(0.7)
             summary_tag.click()
 

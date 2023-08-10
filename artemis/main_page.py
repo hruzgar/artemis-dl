@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
 from . course_page import ArtemisCourse
-from utils.browser import sdriver
-from utils.browser import WebDriverSingleton
-
-sdriver = WebDriverSingleton.get_instance()
+from utils.browser import ensure_driver
+import utils.browser as browser
 
 class ArtemisMainPage:
+    @ensure_driver
     def scrape_courses_to_class_list(self):
-        temp_courses = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-overview-course-card')
+        temp_courses = browser.sdriver.find_elements(By.CSS_SELECTOR, 'jhi-overview-course-card')
         self.courses = []
         for counter in range(len(temp_courses)):
             course_card_element = temp_courses[counter]

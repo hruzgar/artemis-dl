@@ -1,14 +1,12 @@
 import time
 from selenium.webdriver.common.by import By
-from utils.browser import WebDriverSingleton
-from utils.decorators import ensure_driver, sdriver
-
-# sdriver = WebDriverSingleton.get_instance()
+from utils.browser import ensure_driver
+import utils.browser as browser
 
 def get_obvious_repo_urls():
     # only gets practice and personal repo urls.
-    artemis_logo = sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[1]/jhi-navbar/nav/div[1]/a')
-    sdriver.execute_script("arguments[0].scrollIntoView();", artemis_logo)
+    artemis_logo = browser.sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[1]/jhi-navbar/nav/div[1]/a')
+    browser.sdriver.execute_script("arguments[0].scrollIntoView();", artemis_logo)
     time.sleep(2)
     create_practice_exercise_if_exists()
     if not click_clone_repo_button(): return {}
@@ -25,32 +23,33 @@ def get_personal_repo_url():
     return url
 
 def get_practice_repo_url():
-    button_exits = 0 != len(sdriver.find_elements(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input'))
+    button_exits = 0 != len(browser.sdriver.find_elements(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input'))
     if not button_exits: return ''
-    sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input').click()
+    browser.sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input').click()
     repo_type_to_https()
     url = get_repo_url_from_clone_repo_dialog()
-    sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input').click()
+    browser.sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div[1]/input').click()
     return url
 
 def get_repo_url_from_clone_repo_dialog():
-    return sdriver.find_element(By.XPATH, "//*[contains(@class, 'clone-url')]").text
+    return browser.sdriver.find_element(By.XPATH, "//*[contains(@class, 'clone-url')]").text
     
 def repo_type_to_https():
-    sdriver.find_element(By.XPATH, "//button[contains(text(), 'HTTPS')]")
-    sdriver.find_element(By.CSS_SELECTOR, '#useHTTPSButton')
+    browser.sdriver.find_element(By.XPATH, "//button[contains(text(), 'HTTPS')]")
+    browser.sdriver.find_element(By.CSS_SELECTOR, '#useHTTPSButton')
+
 
 def click_clone_repo_button():
-    button_exits = 0 != len(sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-clone-repo-button'))
+    button_exits = 0 != len(browser.sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-clone-repo-button'))
     if not button_exits: return False
-    sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-clone-repo-button').click()
+    browser.sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-clone-repo-button').click()
     return True
 
 def create_practice_exercise_if_exists():
     # basically clicks 'Practice' button. So when you click 'Clone Repo' you can also select practice exercise
-    if 0 != len(sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-start-practice-mode-button')):
-        practice_button = sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-start-practice-mode-button')
+    if 0 != len(browser.sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-start-practice-mode-button')):
+        practice_button = browser.sdriver.find_element(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/div[1]/jhi-exercise-details-student-actions/div/div/jhi-start-practice-mode-button')
         practice_button.click()
-        sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div/div/button[1]').click()
+        browser.sdriver.find_element(By.XPATH, '/html/body/ngb-popover-window/div[2]/div/div/button[1]').click()
         ## wait till practice exercise is created. For now i will just wait for certain amount of seconds
         time.sleep(10)

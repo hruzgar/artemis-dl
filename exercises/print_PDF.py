@@ -4,13 +4,11 @@ import requests
 import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
 from bs4 import BeautifulSoup
-# from utils.browser import WebDriverSingleton
-from utils.decorators import ensure_driver, sdriver
+from utils.browser import ensure_driver
+import utils.browser as browser
 from utils.config import temp_dir
 import exercises.element_paths as element_paths
 from utils.print import printer
-
-# sdriver = WebDriverSingleton.get_instance()
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -54,7 +52,7 @@ def print_using_selenium_method(driver, file_name, file_path=''):
     printer(f'Creating pdf file "{file_name}.pdf"')
 
 def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie=''):
-    soup = BeautifulSoup(sdriver.page_source, 'html.parser')
+    soup = BeautifulSoup(browser.sdriver.page_source, 'html.parser')
     soup = replace_css_file_links(soup)
     soup = remove_unnecessary_elements(soup)
     soup = remove_javascript_links(soup)
@@ -63,12 +61,12 @@ def print_artemis_exercise_to_pdf(exercise_name, exercise_download_dir, cookie='
     with open(str(temp_dir.joinpath('temp.html')), 'w', encoding='utf-8') as file:
         file.write(str(soup))
 
-    original_window = sdriver.current_window_handle
-    sdriver.switch_to.new_window('tab')
-    sdriver.get(temp_dir.joinpath('temp.html').as_uri())
-    print_using_selenium_method(sdriver, exercise_name, str(exercise_download_dir))
-    sdriver.close()
-    sdriver.switch_to.window(original_window)
+    original_window = browser.sdriver.current_window_handle
+    browser.sdriver.switch_to.new_window('tab')
+    browser.sdriver.get(temp_dir.joinpath('temp.html').as_uri())
+    print_using_selenium_method(browser.sdriver, exercise_name, str(exercise_download_dir))
+    browser.sdriver.close()
+    browser.sdriver.switch_to.window(original_window)
     time.sleep(1)
     # temp_driver = chrome_wrapper.get_chromedriver()
     # temp_driver.get(temp_dir.joinpath('temp.html').as_uri())

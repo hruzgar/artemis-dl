@@ -4,9 +4,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from artemis.exercise_page import ArtemisExercise
-from utils.browser import WebDriverSingleton
+from utils.browser import ensure_driver
+import utils.browser as browser
 from utils.print import printer
-from utils.decorators import ensure_driver, sdriver
 
 
 class ArtemisCourse:
@@ -20,7 +20,7 @@ class ArtemisCourse:
         printer(f"Opening Course-Page")
         self.sdriver.get(self.course_link)
         try:
-            WebDriverWait(sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
+            WebDriverWait(browser.sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
         except TimeoutException:
             print("Course-Site Loading took too much time!")
         time.sleep(1)
@@ -31,11 +31,11 @@ class ArtemisCourse:
     
     @ensure_driver
     def get_course_name(self):
-        self.course_name = sdriver.find_element(By.CSS_SELECTOR, '#course-header-title').text
+        self.course_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#course-header-title').text
 
     @ensure_driver
     def scrape_exercises_to_class_list(self):
-        temp_exercises = sdriver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
+        temp_exercises = browser.sdriver.find_elements(By.CSS_SELECTOR, 'jhi-course-exercise-row')
         self.exercises = []
         for counter in range(len(temp_exercises)):
             exercise_card_element = temp_exercises[counter]
@@ -66,12 +66,12 @@ class ArtemisCourse:
     @ensure_driver
     def collapse_all_exercises(self):
         printer("Collapsing exercises on course-page... ([bold red]~15-90s[/])")
-        exercise_list_elements = sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')
+        exercise_list_elements = browser.sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')
         exercise_list_elements.pop(0) # deletes search bar from element list
         for t in exercise_list_elements:
             svg_element = t.find_element(By.TAG_NAME, 'svg')
             icon_state = svg_element.get_attribute("data-icon")
-            sdriver.execute_script("arguments[0].scrollIntoView();", svg_element)
+            browser.sdriver.execute_script("arguments[0].scrollIntoView();", svg_element)
             time.sleep(1)
             if icon_state == 'angle-down':
                 t.click()

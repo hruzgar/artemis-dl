@@ -1,6 +1,21 @@
 from selenium import webdriver
 from utils.print import printer
 
+sdriver = None
+
+# Decorator for all functions, which use the WebDriver. It ensures, that the WebDriver is only opened once and then reused.
+def ensure_driver(func):
+    def wrapper(*args, **kwargs):
+        # if not hasattr(ensure_driver, "sdriver"):
+        #     ensure_driver._driver = WebDriverSingleton.get_instance()
+        # if not hasattr(ensure_driver, "sdriver"):
+        #     ensure_driver.sdriver = WebDriverSingleton.get_instance()
+        global sdriver
+        if globals()["sdriver"] is None:
+            globals()["sdriver"] = WebDriverSingleton.get_instance()
+        return func(*args, **kwargs)
+    return wrapper
+
 class WebDriverSingleton:
     instance = None
 
@@ -23,7 +38,3 @@ class WebDriverSingleton:
         if cls.instance is None:
             cls.instance = cls.get_chromedriver()
         return cls.instance
-
-
-
-# sdriver = get_chromedriver() # Browser Session for scraping

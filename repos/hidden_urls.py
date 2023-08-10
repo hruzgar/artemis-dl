@@ -1,11 +1,9 @@
 from selenium.webdriver.common.by import By
-from utils.decorators import ensure_driver, sdriver
-# from utils.browser import WebDriverSingleton
-
-# sdriver = WebDriverSingleton.get_instance()
+from utils.browser import ensure_driver
+import utils.browser as browser
 
 def get_hidden_repo_urls():
-    all_a_tags = sdriver.find_elements(By.TAG_NAME, 'a')
+    all_a_tags = browser.sdriver.find_elements(By.TAG_NAME, 'a')
     all_links_in_exercise_page = []
     for a_tag in all_a_tags:
         all_links_in_exercise_page.append(a_tag.get_attribute('href'))

@@ -2,16 +2,14 @@ from bs4 import BeautifulSoup
 import os
 import requests
 import exercises.element_paths as element_paths
-# from utils.browser import WebDriverSingleton
-from utils.decorators import ensure_driver, sdriver
+from utils.browser import ensure_driver
+import utils.browser as browser
 from utils.print import printer
-
-# sdriver = WebDriverSingleton.get_instance()
 
 def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
     download_dir = exercise_download_dir.joinpath('Webpage')
     os.makedirs(str(download_dir), exist_ok=True)
-    soup = BeautifulSoup(sdriver.page_source, 'html.parser')
+    soup = BeautifulSoup(browser.sdriver.page_source, 'html.parser')
     remove_base_tag(soup)
     inject_custom_css_files(soup)
     # soup = replace_css_file_links(soup)

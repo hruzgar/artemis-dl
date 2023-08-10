@@ -1,11 +1,8 @@
 import unicodedata
 import re
-# import utils.browser
-# from utils.browser import WebDriverSingleton
-from utils.decorators import ensure_driver, sdriver
+from utils.browser import ensure_driver
+import utils.browser as browser
 from selenium.webdriver.common.by import By
-
-# sdriver = WebDriverSingleton.get_instance()
 
 def slugify(value, allow_unicode=False):
     """
@@ -47,7 +44,7 @@ def is_valid_artemis_course_link(my_str):
 def get_exercise_tags_on_page():
     exercise_tags = []
 
-    exercise_header = sdriver.find_element(By.CSS_SELECTOR, '#exercise-header')
+    exercise_header = browser.sdriver.find_element(By.CSS_SELECTOR, '#exercise-header')
     header_text = exercise_header.text.lower()
     if 'bonus' in header_text:
         exercise_tags.append('bonus')
