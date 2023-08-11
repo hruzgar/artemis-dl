@@ -101,7 +101,7 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 
 # Other stuff
 
-<details><summary><h3>FAQ</h3></summary>
+<details><summary><h4>FAQ</h4></summary>
 
 <details><summary>Which courses are supported?</summary>
 
@@ -123,7 +123,7 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
 </details>
 
-<details><summary><h3>Roadmap</h3></summary>
+<details><summary><h4>Roadmap</h4></summary>
 
 - Generate html file for exercises
    - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
@@ -133,7 +133,7 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 </details>
 
 
-<details><summary><h3>Behind the scenes</h3></summary>
+<details><summary><h4>Behind the scenes</h4></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
