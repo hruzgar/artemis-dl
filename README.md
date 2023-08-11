@@ -1,13 +1,31 @@
-# 😋 Features
-- Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
-   
-- Can be used to download full Artemis-Courses with one command 🤯
+# Introduction
+**Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of our exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't depend on any third party services or servers to ensure the longevity.
+
+Features:
+- **Dark-Mode PDFs:** Download exercises as pdf while preserving the dark theme.
+- **Exercise Repositories:** Find and download repositories (even hidden ones) of exercises directly from the Artemis git server (bitbucket).
+- **One-command Course Download:** And all of this with only *one command!!*. Download full Artemis-Courses with a single command, creating a lasting local archive.
+
+Each exercise gets the following folder structure after download (in progress.. currently its a bit different):
+```
+Exercise-Name/
+├── repos/
+│   ├── repo/
+│   ├── repo-practice/
+│   └── repo-solution/
+├── webpage/
+│   ├── assets/
+│   └── index.html
+└── exercise.pdf
+```
+
+Further down, you'll encounter step-by-step installation instructions and additional details to assist in your setup. Here's to preserving our academic endeavors for the future!
 
 
-# 🐍 How to install and use
-There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable (only works on Windows).
+# Install & Use
+Currently, there are *three supported methods* to utilize this scraper. Choose the one that best fits your needs. For those less tech-savvy, the **first option is recommended** and is tailored specifically for Windows users.
 
-<details><summary><h3>1. Use preconfigured binary (Windows)(recommended)</h3></summary>
+<details><summary><b>1. Use preconfigured binary (Windows)(recommended)</b></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -27,7 +45,7 @@ artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "http
 4. Enjoy 🥳😝
 </details>
 <details>
-<summary><h3>2. Run from source code (Windows)</h3></summary>
+<summary><b>2. Run from source code (Windows)</b></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -62,7 +80,7 @@ python main.py dl-course --username ab12cde --password 12345678 --link "https://
 ```
 
 </details>
-<details><summary><h3>3. Run from source code (Linux)</h3></summary>
+<details><summary><b>3. Run from source code (Linux)</b></summary>
 
 #### Prerequisits
 - Google-Chrome
@@ -94,10 +112,10 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 ```
 </details>
 
-<br>
+# Other stuff
 
+<details><summary><b>FAQ</b></summary>
 
-# 🙋‍♀️FAQ
 <details><summary>Which courses are supported?</summary>
 
 ***
@@ -116,17 +134,18 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 </details>
 
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
+</details>
 
-# 🚂 Roadmap
-- Generate html file for exercises
-   - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
-   - Possible obstacles: html file might get too big.
+<details><summary><b>Roadmap</b></summary>
+
+- Exercise Webpage Download
+   - work in Progress..
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
-- Big Refactor
-   - Current Codebase is working which is really good. However it's not really well organised and doesn't have a good structure. Big.. very Big refactor incoming..
+</details>
 
-<details><summary><h1>🎥 Behind the scenes</h1></summary>
+
+<details><summary><b>Behind the scenes</b></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
@@ -138,3 +157,4 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 8. Puts all files into a nicely named folder 🥰
 9. Lets you enjoy all your exercises in the future 🤩
 </details>
+
