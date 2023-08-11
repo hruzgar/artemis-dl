@@ -18,7 +18,7 @@ class ArtemisCourse:
     @ensure_driver
     def open(self):
         printer(f"Opening Course-Page")
-        self.sdriver.get(self.course_link)
+        browser.sdriver.get(self.course_link)
         try:
             WebDriverWait(browser.sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div[1]/div/button')))
         except TimeoutException:

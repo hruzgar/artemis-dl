@@ -79,6 +79,7 @@ class ArtemisExercise:
             return
         self.print_exercise_to_pdf()
         self.clone_repos()
+        self.download_webpage()
 
     def clone_repos(self):
         self.repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
