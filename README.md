@@ -12,7 +12,7 @@ Further down, you'll encounter step-by-step installation instructions and additi
 # Install & Use
 Currently, there are *three supported methods* to utilize this scraper. Choose the one that best fits your needs. For those less tech-savvy, the **first option is recommended** and is tailored specifically for Windows users.
 
-<details><summary><h4>1. Use preconfigured binary (Windows)(recommended)</h4></summary>
+<details><summary><b>1. Use preconfigured binary (Windows)(recommended)</b></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -32,7 +32,7 @@ artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "http
 4. Enjoy 🥳😝
 </details>
 <details>
-<summary><h4>2. Run from source code (Windows)</h4></summary>
+<summary><b>2. Run from source code (Windows)</b></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -67,7 +67,7 @@ python main.py dl-course --username ab12cde --password 12345678 --link "https://
 ```
 
 </details>
-<details><summary><h4>3. Run from source code (Linux)</h4></summary>
+<details><summary><b>3. Run from source code (Linux)</b></summary>
 
 #### Prerequisits
 - Google-Chrome
@@ -101,7 +101,7 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 
 # Other stuff
 
-<details><summary><h4>FAQ</h4></summary>
+<details><summary><b>FAQ</b></summary>
 
 <details><summary>Which courses are supported?</summary>
 
@@ -123,7 +123,7 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
 </details>
 
-<details><summary><h4>Roadmap</h4></summary>
+<details><summary><b>Roadmap</b></summary>
 
 - Exercise Webpage Download
    - work in Progress..
@@ -132,7 +132,7 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 </details>
 
 
-<details><summary><h4>Behind the scenes</h4></summary>
+<details><summary><b>Behind the scenes</b></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
