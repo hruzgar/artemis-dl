@@ -1,24 +1,34 @@
 from bs4 import BeautifulSoup
 import os
 import requests
+import shutil
 import exercises.element_paths as element_paths
 from utils.browser import ensure_driver
 import utils.browser as browser
 from utils.print import printer
 
 def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
-    download_dir = exercise_download_dir.joinpath('Webpage')
-    os.makedirs(str(download_dir), exist_ok=True)
+    webpage_dir = exercise_download_dir.joinpath('webpage')
+    assets_dir = webpage_dir.joinpath('assets')
+    os.makedirs(str(assets_dir), exist_ok=True)
+    copy_custom_css_files(assets_dir)
+
     soup = BeautifulSoup(browser.sdriver.page_source, 'html.parser')
     remove_base_tag(soup)
-    inject_custom_css_files(soup)
+    inject_custom_css_files(soup, assets_dir)
     # soup = replace_css_file_links(soup)
     remove_unnecessary_elements(soup)
     remove_javascript_links(soup)
-    download_remote_images_and_replace_links(soup, str(download_dir.joinpath('images')), cookie=cookie)
+    download_remote_images_and_replace_links(soup, str(assets_dir), cookie=cookie)
 
-    with open(str(exercise_download_dir.joinpath('Webpage').joinpath('index.html')), 'w', encoding='utf-8') as file:
+    with open(str(webpage_dir.joinpath('index.html')), 'w', encoding='utf-8') as file:
         file.write(str(soup))
+
+def copy_custom_css_files(assets_dir):
+    # copies the custom css files to the exercise directory
+    shutil.copyfile('./custom_css/styles.css', assets_dir.joinpath('styles.css'))
+    shutil.copyfile('./custom_css/theme-dark.css', assets_dir.joinpath('theme-dark.css'))
+
 
 def remove_base_tag(soup):
     # removes the base tag, which forces absolute paths for all links
@@ -26,9 +36,9 @@ def remove_base_tag(soup):
     if base_tag:
         base_tag.decompose()
 
-def inject_custom_css_files(soup):
-    styles_css_path = 'custom_css/styles.css'
-    dark_mode_css_path = 'custom_css/theme-dark.css'
+def inject_custom_css_files(soup, assets_dir):
+    styles_css_path = assets_dir.joinpath('styles.css')
+    dark_mode_css_path = assets_dir.joinpath('theme-dark.css')
 
     with open(styles_css_path, 'r') as file:
         styles_css = file.read()
@@ -116,12 +126,19 @@ def download_remote_images_and_replace_links(soup, local_directory, cookie):
     # finds all 'img' tags in html file, downloads the images and replaces the href to local image file
     os.makedirs(local_directory, exist_ok=True)
     for img_tag in soup.find_all('img'):
+        outside_link = False
         if (img_tag['src'][0] == '/'):
             image_url = 'https://artemis.in.tum.de' + img_tag['src']
+        elif (img_tag['src'][0] == 'h'):
+            image_url = img_tag['src']
+            outside_link = True
         else:
             image_url = 'https://artemis.in.tum.de/' + img_tag['src']
 
-        downloaded_image_path = download_image(image_url, local_directory, cookie)
+        if outside_link:
+            downloaded_image_path = download_image(image_url, local_directory, '')
+        else:
+            downloaded_image_path = download_image(image_url, local_directory, cookie)
         if downloaded_image_path:
             img_tag['src'] = downloaded_image_path
         else:

@@ -23,7 +23,7 @@ class WebDriverSingleton:
     def get_chromedriver():
         printer('Opening Browser..')
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         options.add_argument('--no-sandbox')
         options.add_argument('--start-maximized')
         options.add_argument('--disable-popup-blocking')
