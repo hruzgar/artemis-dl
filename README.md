@@ -3,7 +3,7 @@
 
 Features:
 - **Dark-Mode PDFs:** Download exercises as pdf while preserving the dark theme.
-- **Exercise Repositories:** Finds and downloads repositories (even hidden ones) of exercises directly from Tum Artemis.
+- **Exercise Repositories:** Find and download repositories (even hidden ones) of exercises directly from Tum Artemis.
 - **One-command Course Download:** And all of this with only *one command!!*. Download full Artemis-Courses with a single command, creating a lasting local archive.
 
 Further down, you'll encounter step-by-step installation instructions and additional details to assist in your setup. Here's to preserving our academic endeavors for the future!
