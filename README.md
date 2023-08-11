@@ -10,8 +10,9 @@ Each exercise gets the following folder structure after download (in progress.. 
 ```
 Exercise-Name/
 ├── repos/
-│   ├── repo1/
-│   └── repo2/
+│   ├── repo/
+│   ├── repo-practice/
+│   └── repo-solution/
 ├── webpage/
 │   ├── assets/
 │   └── index.html
