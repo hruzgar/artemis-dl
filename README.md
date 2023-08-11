@@ -11,7 +11,7 @@ Further down, you'll encounter step-by-step installation instructions and additi
 # Install & Use
 Currently, there are *three supported methods* to utilize this scraper. Choose the one that best fits your needs. For those less tech-savvy, the **first option is recommended** and is tailored specifically for Windows users.
 
-<details><summary><h3>1. Use preconfigured binary (Windows)(recommended)</h3></summary>
+<details><summary><h4>1. Use preconfigured binary (Windows)(recommended)</h4></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -31,7 +31,7 @@ artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "http
 4. Enjoy 🥳😝
 </details>
 <details>
-<summary><h3>2. Run from source code (Windows)</h3></summary>
+<summary><h4>2. Run from source code (Windows)</h4></summary>
 
 #### Prerequisites
 - [Google-Chrome](https://www.google.com/chrome/)
@@ -66,7 +66,7 @@ python main.py dl-course --username ab12cde --password 12345678 --link "https://
 ```
 
 </details>
-<details><summary><h3>3. Run from source code (Linux)</h3></summary>
+<details><summary><h4>3. Run from source code (Linux)</h4></summary>
 
 #### Prerequisits
 - Google-Chrome
@@ -98,10 +98,10 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 ```
 </details>
 
-<br>
+***
 
+<details><summary><h2>FAQ</h2></summary>
 
-# FAQ
 <details><summary>Which courses are supported?</summary>
 
 ***
@@ -120,15 +120,19 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 </details>
 
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
+</details>
 
-# Roadmap
+<details><summary><h2>Roadmap</h2></summary>
+
 - Generate html file for exercises
    - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
    - Possible obstacles: html file might get too big.
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
+</details>
 
-<details><summary><h1>Behind the scenes</h1></summary>
+
+<details><summary><h2>Behind the scenes</h2></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
