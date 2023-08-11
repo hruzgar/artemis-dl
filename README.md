@@ -1,10 +1,22 @@
 # Introduction
-**Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of our exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't require any third party service to ensure the longevity.
+**Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of our exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't depend any third party services or servers to ensure the longevity.
 
 Features:
 - **Dark-Mode PDFs:** Download exercises as pdf while preserving the dark theme.
 - **Exercise Repositories:** Find and download repositories (even hidden ones) of exercises directly from Tum Artemis.
 - **One-command Course Download:** And all of this with only *one command!!*. Download full Artemis-Courses with a single command, creating a lasting local archive.
+
+Each exercise gets the following folder structure after download (in progress.. currently its a bit different):
+```
+Exercise-Name/
+├── repos/
+│   ├── repo1/
+│   └── repo2/
+├── webpage/
+│   ├── assets/
+│   └── index.html
+└── exercise.pdf
+```
 
 Further down, you'll encounter step-by-step installation instructions and additional details to assist in your setup. Here's to preserving our academic endeavors for the future!
 
