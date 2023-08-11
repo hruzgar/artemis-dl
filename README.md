@@ -1,10 +1,13 @@
-# 😋 Features
-- Downloads dark-mode pdfs and repositories of exercises from [Tum Artemis](https://artemis.in.tum.de/)
-   
-- Can be used to download full Artemis-Courses with one command 🤯
+**Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of your exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't require any third party service to ensure the longevity.
+
+Features:
+- **Dark-Mode PDFs:** Download exercises preserving the dark theme.
+- **Exercise Repositories:** Finds and downloads repositories (even hidden ones) of exercises directly from Tum Artemis.
+- **One-command Course Download:** And all of this with only *one command!!*. Download full Artemis-Courses with a single command, creating a lasting local archive.
+Further down, you'll encounter step-by-step installation instructions and additional details to assist in your setup. Here's to preserving our academic endeavors for the future!
 
 
-# 🐍 How to install and use
+# Install & Use
 There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable (only works on Windows).
 
 <details><summary><h3>1. Use preconfigured binary (Windows)(recommended)</h3></summary>
@@ -97,7 +100,7 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 <br>
 
 
-# 🙋‍♀️FAQ
+# FAQ
 <details><summary>Which courses are supported?</summary>
 
 ***
@@ -117,16 +120,14 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
 
-# 🚂 Roadmap
+# Roadmap
 - Generate html file for exercises
    - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
    - Possible obstacles: html file might get too big.
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
-- Big Refactor
-   - Current Codebase is working which is really good. However it's not really well organised and doesn't have a good structure. Big.. very Big refactor incoming..
 
-<details><summary><h1>🎥 Behind the scenes</h1></summary>
+<details><summary><h1>Behind the scenes</h1></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
