@@ -9,7 +9,7 @@ Further down, you'll encounter step-by-step installation instructions and additi
 
 
 # Install & Use
-There is currently **3 supported Ways** to use this scraper. Use whichever you prefer. For non-technicals, the first solution is preferable (only works on Windows).
+Currently, there are *three supported methods* to utilize this scraper. Choose the one that best fits your needs. For those less tech-savvy, the **first option is recommended** and is tailored specifically for Windows users.
 
 <details><summary><h3>1. Use preconfigured binary (Windows)(recommended)</h3></summary>
 
