@@ -125,9 +125,8 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 
 <details><summary><h4>Roadmap</h4></summary>
 
-- Generate html file for exercises
-   - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
-   - Possible obstacles: html file might get too big.
+- Exercise Webpage Download
+   - work in Progress..
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
 </details>
