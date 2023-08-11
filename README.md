@@ -1,3 +1,4 @@
+# Introduction
 **Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of your exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't require any third party service to ensure the longevity.
 
 Features:
@@ -98,9 +99,9 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 ```
 </details>
 
-***
+# Other stuff
 
-<details><summary><h2>FAQ</h2></summary>
+<details><summary><h3>FAQ</h3></summary>
 
 <details><summary>Which courses are supported?</summary>
 
@@ -122,7 +123,7 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
 </details>
 
-<details><summary><h2>Roadmap</h2></summary>
+<details><summary><h3>Roadmap</h3></summary>
 
 - Generate html file for exercises
    - TODO: copy custom_css inside html file. Rename and copy to exercise folder.
@@ -132,7 +133,7 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 </details>
 
 
-<details><summary><h2>Behind the scenes</h2></summary>
+<details><summary><h3>Behind the scenes</h3></summary>
    
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
