@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
+from pathlib import Path
 import os
+import sys
 import requests
 import shutil
 import exercises.element_paths as element_paths
@@ -25,8 +27,13 @@ def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
 
 def copy_custom_css_files(assets_dir):
     # copies the custom css files to the exercise directory
-    shutil.copyfile('./custom_css/styles.css', assets_dir.joinpath('styles.css'))
-    shutil.copyfile('./custom_css/theme-dark.css', assets_dir.joinpath('theme-dark.css'))
+    if getattr(sys, 'frozen', False):
+        shutil.copyfile(Path(sys._MEIPASS).joinpath('custom_css').joinpath('styles.css'), assets_dir.joinpath('styles.css'))
+        shutil.copyfile(Path(sys._MEIPASS).joinpath('custom_css').joinpath('theme-dark.css'), assets_dir.joinpath('theme-dark.css'))
+    else:
+        shutil.copyfile(Path(__file__).parent.parent.joinpath('custom_css').joinpath('styles.css'), assets_dir.joinpath('styles.css'))
+        shutil.copyfile(Path(__file__).parent.parent.joinpath('custom_css').joinpath('theme-dark.css'), assets_dir.joinpath('theme-dark.css'))
+    # shutil.copyfile(Path().cwd().joinpath('custom_css').joinpath('theme-dark.css'), assets_dir.joinpath('theme-dark.css'))
 
 
 def remove_base_tag(soup):
