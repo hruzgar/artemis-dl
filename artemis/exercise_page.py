@@ -83,7 +83,7 @@ class ArtemisExercise:
 
     def clone_repos(self):
         self.repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
-        clone_all_repos(repo_urls=self.repo_urls, local_download_dir=self.exercise_download_path)
+        clone_all_repos(repo_urls=self.repo_urls, local_download_dir=self.exercise_download_path.joinpath('repos'))
 
     @ensure_driver
     def collapse_all_parts(self):

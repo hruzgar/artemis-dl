@@ -26,7 +26,8 @@ class ArtemisCourse:
         time.sleep(1)
         if self.course_name is None: self.get_course_name()
         printer(f'Course-Page "{self.course_name}" opened')
-        self.collapse_all_exercises()
+        self.collapse_all_exercises_old()
+        self.collapse_all_exercises_new()
         self.scrape_exercises_to_class_list()
     
     @ensure_driver
@@ -40,6 +41,7 @@ class ArtemisCourse:
         for counter in range(len(temp_exercises)):
             exercise_card_element = temp_exercises[counter]
             exercise_name = exercise_card_element.find_element(By.XPATH, './div/div[2]/div[1]/div[2]/h4').text
+            print("exercise name = " + exercise_name)
             exercise_link = exercise_card_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
             temp_exercise = ArtemisExercise(exercise_link=exercise_link, course_name=self.course_name, exercise_name=exercise_name)
             self.exercises.append(temp_exercise)
@@ -64,7 +66,7 @@ class ArtemisCourse:
 
         
     @ensure_driver
-    def collapse_all_exercises(self):
+    def collapse_all_exercises_old(self):
         printer("Collapsing exercises on course-page... ([bold red]~15-90s[/])")
         exercise_list_elements = browser.sdriver.find_elements(By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-overview/div/div/div[2]/jhi-course-exercises/div/div[1]/div/div')
         exercise_list_elements.pop(0) # deletes search bar from element list
@@ -75,4 +77,13 @@ class ArtemisCourse:
             time.sleep(1)
             if icon_state == 'angle-down':
                 t.click()
-                # time.sleep(2)
+
+    def collapse_all_exercises_new(self):
+        elements = browser.sdriver.find_elements(By.CSS_SELECTOR, '.rotate-icon.chevron-position')
+
+        for element in elements:
+            if 'rotated' not in element.get_attribute('class').split():
+                browser.sdriver.execute_script("arguments[0].scrollIntoView();", element)
+                time.sleep(1)
+                element.click()
+                time.sleep(2)
