@@ -36,7 +36,6 @@ class ArtemisCourse:
         for counter in range(len(temp_exercises)):
             exercise_card_element = temp_exercises[counter]
             exercise_name = exercise_card_element.find_element(By.XPATH, './div/div[2]/div[1]/div[2]/h4').text
-            print("exercise name = " + exercise_name)
             exercise_link = exercise_card_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
             temp_exercise = ArtemisExercise(exercise_link=exercise_link, course_name=self.course_name, exercise_name=exercise_name)
             self.exercises.append(temp_exercise)
