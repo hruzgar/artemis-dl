@@ -1,5 +1,4 @@
-**Important Note: 
-Current binary has outdated selenium version. I'm on holiday and will fix it when i'm back at home. Also there is some big changes which are still not included in the binary so stay stuned. Thanks**
+**Recent Changes: Current binary now chooses MS Edge as the default browser and also works with later or previous browser versions. Bugs were also fixed and code was adjusted to new artemis version. Enjoy!**
 # Introduction
 **Hello and welcome to my GitHub repository!** As a student at TUM utilizing the Tum Artemis platform, I felt the need to create a way to permanently archive all of our exercises. I believe in the value of preserving knowledge, so I designed this tool to ensure I, and others, can download and access these exercises indefinitely - even 30 years down the road. This tool creates a *completely local copy* of exercises and doesn't depend on any third party services or servers to ensure the longevity.
 
@@ -8,7 +7,7 @@ Features:
 - **Exercise Repositories:** Find and download repositories (even hidden ones) of exercises directly from the Artemis git server (bitbucket).
 - **One-command Course Download:** And all of this with only *one command!!*. Download full Artemis-Courses with a single command, creating a lasting local archive.
 
-Each exercise gets the following folder structure after download (in progress.. currently its a bit different):
+Each exercise gets the following folder structure after download (was added in the newest release 0.2.0):
 ```
 Exercise-Name/
 ├── repos/
@@ -30,7 +29,7 @@ Currently, there are *three supported methods* to utilize this scraper. Choose t
 <details><summary><b>1. Use preconfigured binary (Windows)(recommended)</b></summary>
 
 #### Prerequisites
-- [Google-Chrome](https://www.google.com/chrome/)
+- Microsoft Edge (should be preinstalled on your PC)
 - [Git](https://git-scm.com/download/win) (should be in PATH)
 #### Installation
 1. [Download binary](https://github.com/hruzgar/artemis-dl/releases/latest/download/artemis-dl_x86.exe)
@@ -50,7 +49,7 @@ artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "http
 <summary><b>2. Run from source code (Windows)</b></summary>
 
 #### Prerequisites
-- [Google-Chrome](https://www.google.com/chrome/)
+- Microsoft Edge (should be preinstalled on your PC)
 - [Git](https://git-scm.com/download/win) (should be in PATH)
 - [python](https://www.python.org/downloads/windows/)
 - venv (should be installed together with python)
@@ -117,7 +116,7 @@ python3 main.py dl-course --username ab12cde --password 12345678 --link "https:/
 # Other stuff
 
 <details><summary><b>FAQ</b></summary>
-
+<br>
 <details><summary>Which courses are supported?</summary>
 
 ***
@@ -139,16 +138,17 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 </details>
 
 <details><summary><b>Roadmap</b></summary>
+<br>
 
-- Exercise Webpage Download
-   - work in Progress..
 - Download Quizzes
    - Currently quizzes are directly skipped if found.
 </details>
 
 
 <details><summary><b>Behind the scenes</b></summary>
-   
+<br>
+
+In the recent releases its not the same steps anymore. Will update this later
 1. Logs in into Artemis
 2. Crawls all exercises for specified course
 3. Repeatedly does Step 4-8
@@ -158,5 +158,15 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 7. finds all repositories on exercise-page and clones them (hidden repositories like test-repos etc are included)
 8. Puts all files into a nicely named folder 🥰
 9. Lets you enjoy all your exercises in the future 🤩
+</details>
+
+<details><summary><b>Building the Windows Binary</b></summary>
+<br>
+
+- using 'auto-py-to-exe'
+- select your artemis build folder (same as repo but without ".git" folder)
+- select 'One File'
+- In 'Advanced > --paths' add the'site-packages' directory of your envoirenment. This will contain all the modules. For example "D:/code/artemis-dl/lib/python3.10/site-packages" for venv or "C:\\Users\\haso\\miniconda3\\envs\\scrape\\Lib\\site-packages" for conda
+- In 'Additional Files' click 'Add Folder' and open root path of project. In the right input box just put a dot '.'
 </details>
 
