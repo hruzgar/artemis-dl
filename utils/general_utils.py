@@ -1,6 +1,5 @@
 import unicodedata
 import re
-from utils.browser import ensure_driver
 import utils.browser as browser
 from selenium.webdriver.common.by import By
 
@@ -40,7 +39,6 @@ def is_valid_artemis_course_link(my_str):
     return False
 
 
-@ensure_driver
 def get_exercise_tags_on_page():
     exercise_tags = []
 

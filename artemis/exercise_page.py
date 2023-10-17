@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from utils.browser import ensure_driver
 import utils.browser as browser
 from repos.clone import clone_all_repos
 from repos.obvious_urls import get_obvious_repo_urls
@@ -21,7 +20,6 @@ class ArtemisExercise:
         self.exercise_name = exercise_name
         self.exercise_tags = []
 
-    @ensure_driver
     def open(self):
         browser.sdriver.get(self.exercise_link)
         try:
@@ -39,12 +37,9 @@ class ArtemisExercise:
             self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath('optional').joinpath(
             utils.slugify(self.exercise_name))
 
-
-    @ensure_driver
     def get_exercise_name(self):
         self.exercise_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
 
-    @ensure_driver
     def get_course_name(self):
         self.course_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
     
@@ -62,16 +57,13 @@ class ArtemisExercise:
         else:
             self.exercise_difficulty = 'unknown'
 
-    @ensure_driver
     def print_exercise_to_pdf(self):
         cookie = 'jwt=' + browser.sdriver.get_cookies()[0]['value']
         print_PDF.print_artemis_exercise_to_pdf(exercise_name=utils.slugify(self.exercise_name), exercise_download_dir=self.exercise_download_path, cookie=cookie)
 
-    @ensure_driver
     def download_webpage(self):
         cookie = 'jwt=' + browser.sdriver.get_cookies()[0]['value']
         downloader.save_page_to_html(exercise_download_dir=self.exercise_download_path, exercise_name=utils.slugify(self.exercise_name), cookie=cookie)
-
 
     def download_exercise(self):
         if 'quiz' in self.exercise_tags:
@@ -85,13 +77,9 @@ class ArtemisExercise:
         self.repo_urls = get_obvious_repo_urls() | get_hidden_repo_urls()
         clone_all_repos(repo_urls=self.repo_urls, local_download_dir=self.exercise_download_path.joinpath('repos'))
 
-    @ensure_driver
     def collapse_all_parts(self):
         summary_tags = browser.sdriver.find_elements(By.TAG_NAME, 'details')
         for summary_tag in summary_tags:
             browser.sdriver.execute_script("arguments[0].scrollIntoView();", summary_tag)
             time.sleep(0.7)
             summary_tag.click()
-
-
-    

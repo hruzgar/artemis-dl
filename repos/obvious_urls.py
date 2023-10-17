@@ -1,6 +1,5 @@
 import time
 from selenium.webdriver.common.by import By
-from utils.browser import ensure_driver
 import utils.browser as browser
 
 def get_obvious_repo_urls():

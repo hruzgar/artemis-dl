@@ -3,7 +3,6 @@ import os
 import requests
 import shutil
 import exercises.element_paths as element_paths
-from utils.browser import ensure_driver
 import utils.browser as browser
 from utils.print import printer
 

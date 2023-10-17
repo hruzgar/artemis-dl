@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from utils.browser import ensure_driver
 import utils.browser as browser
 
 def get_hidden_repo_urls():

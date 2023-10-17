@@ -4,7 +4,6 @@ import requests
 import base64
 from selenium.webdriver.common.print_page_options import PrintOptions
 from bs4 import BeautifulSoup
-from utils.browser import ensure_driver
 import utils.browser as browser
 from utils.config import temp_dir
 import exercises.element_paths as element_paths
