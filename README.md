@@ -172,3 +172,6 @@ In the recent releases its not the same steps anymore. Will update this later
 - In 'Additional Files' click 'Add Folder' and open root path of project. In the right input box just put a dot '.'
 </details>
 
+
+**Disclaimer:**
+This application is provided for educational and personal use only. Users must ensure compliance with the policies of their respective educational institution and applicable laws. This software is independently developed, not affiliated with, endorsed by, or supported by any university or institution. Users assume all responsibility and risk associated with the use of this tool.
