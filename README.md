@@ -1,4 +1,4 @@
-**Recent Changes: Current binary now chooses MS Edge as the default browser and also works with later or previous browser versions. Bugs were also fixed and code was adjusted to new artemis version. Enjoy!**
+**Recent Changes: Current Windows binary now chooses MS Edge as the default browser and also works with later or previous browser versions. Bugs were also fixed and code was adjusted to new artemis version. Enjoy!**
 
 ![](https://github.com/hruzgar/artemis-dl/blob/main/showcase.png)
 # Introduction
@@ -85,6 +85,9 @@ python main.py dl-course --username ab12cde --password 12345678 --link "https://
 </details>
 <details><summary><b>3. Run from source code (Linux)</b></summary>
 
+   
+**This guide was for the older artemis-dl versions. You might be better off, using the Windows binary if you're able to. The current codebase needs some changes to choose chrome instead of MS Edge if on Linux and also someone needs to test if it works. Currently i don't have the time to do it but please make a pull request if you do..**
+   
 #### Prerequisits
 - Google-Chrome
 - Git
