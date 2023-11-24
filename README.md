@@ -45,7 +45,7 @@ artemis-dl_x86.exe dl-course --username YOUR_USERNAME --password YOUR_PASSWORD -
 artemis-dl_x86.exe dl-course --username ab12cde --password 12345678 --link "https://artemis.in.tum.de/courses/201/exercises" # Real Example
 ### you can also specify download location with adding '--download-path YOUR_DOWNLOAD_PATH' to the end of the command. Otherwise a folder named 'downloads' will be created in the location of the binary file. 
 ```
-4. Enjoy 🥳😝
+4. If you got to here and liked the downloader, don't forget to give the repo a star ⭐. Enjoy 🥳😝
 </details>
 <details>
 <summary><b>2. Run from source code (Windows)</b></summary>
