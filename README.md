@@ -1,4 +1,4 @@
-**All the new changes to Artemis in the last year or so made the downloader unusable atm, but I'm working on a fix now and it should not take too long (I'm basically rewriting huge parts of the logic but yeah 👨‍🦰).**
+**All the recent changes to Artemis in the last year or so made the downloader unusable atm, but I'm working on a fix now and it should not take too long (I'm basically rewriting huge parts of the logic but yeah 👨‍🦰).**
 
 ![](https://github.com/hruzgar/artemis-dl/blob/main/showcase.png)
 # Introduction
