@@ -1,4 +1,4 @@
-**Recent Changes: Current Windows binary now chooses MS Edge as the default browser and also works with later or previous browser versions. Bugs were also fixed and code was adjusted to new artemis version. Enjoy!**
+**All the new changes to Artemis in the last year or so made the downloader unusable atm but I'm working on a complete rewrite to adjust the codebase to the new Artemis version.**
 
 ![](https://github.com/hruzgar/artemis-dl/blob/main/showcase.png)
 # Introduction
