@@ -153,16 +153,13 @@ If you have any other questions, you can reach out to me on [haso@ruezgar.de](ma
 <details><summary><b>Behind the scenes</b></summary>
 <br>
 
-In the recent releases its not the same steps anymore. Will update this later
 1. Logs in into Artemis
-2. Crawls all exercises for specified course
-3. Repeatedly does Step 4-8
-4. Downloads html of exercise-page
-5. injects custom-css into html-page
-6. prints html to pdf
-7. finds all repositories on exercise-page and clones them (hidden repositories like test-repos etc are included)
-8. Puts all files into a nicely named folder 🥰
-9. Lets you enjoy all your exercises in the future 🤩
+2. Goes through every single exercise for that course and does these operations
+   - Downloads html of exercise-page
+   - injects custom-css into html-page
+   - prints html to pdf
+   - finds all repositories on exercise-page and clones them (hidden repositories like test-repos etc are included)
+8. Puts all the files into their respective folders
 </details>
 
 <details><summary><b>Building the Windows Binary</b></summary>
