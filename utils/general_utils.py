@@ -2,6 +2,7 @@ import unicodedata
 import re
 import utils.browser as browser
 from selenium.webdriver.common.by import By
+from urllib.parse import urlparse
 
 def slugify(value, allow_unicode=False):
     """
@@ -34,7 +35,7 @@ def is_tum_ID(my_str):
     return True
 
 def is_valid_artemis_course_link(my_str):
-    pattern = re.compile(r'^https://artemis\.in\.tum\.de/courses/\d+/exercises(/(\d+))?$')
+    pattern = re.compile(r'^https://artemis(?:\.(?:in|cit))?\.tum\.de/courses/\d+(?:/exercises)?$')
     if pattern.match(my_str): return True
     return False
 
@@ -63,3 +64,7 @@ def get_exercise_tags_on_page():
     if 'hard' in header_text:
         exercise_tags.append('hard')
     return exercise_tags
+
+def extract_base_url(url: str) -> str:
+    parsed = urlparse(url)
+    return f"{parsed.scheme}://{parsed.netloc}"

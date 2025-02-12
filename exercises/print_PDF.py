@@ -91,35 +91,26 @@ def replace_css_file_links(soup):
     return soup    
 
 def remove_unnecessary_elements(soup):
-    ###
     # Remove Results Bar if exists
     remove_with_selector_if_exists(soup, element_paths.exercise_results_row_1)
     remove_with_selector_if_exists(soup, element_paths.exercise_results_row_2)
     remove_with_selector_if_exists(soup, element_paths.exercise_results_row_3)
 
-    ###
-    soup.css.select(element_paths.exercise_navbar)[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
-    soup.css.select(element_paths.exercise_path_row)[0].decompose() # Index (Zeigt 'Courses > Prakti..')
-    
-    # 'Assessment:automatic'
-    remove_with_selector_if_exists(soup, element_paths.exercise_assessment_text)
+    # Remove Header (ganz oben mit Artemis Zeichen und navbar)
+    soup.css.select(element_paths.exercise_navbar_and_upper_stuff)[0].decompose()     
 
-    due_things = soup.css.select(element_paths.exercise_due_date_rows) # Submission due: ..
-    for due_thing in due_things:
-        due_thing.decompose()
+    # due_things = soup.css.select(element_paths.exercise_due_date_rows) # Submission due: ..
+    # for due_thing in due_things:
+    #     due_thing.decompose()
 
-    remove_with_selector_if_exists(soup, element_paths.exercise_clone_row) # Clone Repository part
-    ###
     # remove 'Tasks' part, if exists
     remove_with_selector_if_exists(soup, element_paths.exercise_tasks_row)
 
-    ###
     # remove Community Field if exists
     remove_with_selector_if_exists(soup, element_paths.exercise_community_field)
 
-    ###
-    soup.find('jhi-footer').decompose()
-    # soup.css.select(soup, element_paths.exercise_footer)[0].decompose() # Footer (About, Privacy und so ganz unten)
+    soup.find('jhi-footer').decompose()# Footer (About, Privacy und so ganz unten)
+    
     return soup
 
 def remove_with_selector_if_exists(soup, css_selector):

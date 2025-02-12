@@ -1,0 +1,3 @@
+1. 
+Previously, every exercise Element box in the course page had an <a> tag with the appropriate link to the exercise inside it.
+But with the newest Artemis version that does not work anymore sadly. Now the only solution is to go through each exercise one by one by clicking the Exercise box and downloading the exercises at the same time. So previously elegant solution is not possible anymore.

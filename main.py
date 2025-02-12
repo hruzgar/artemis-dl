@@ -5,9 +5,9 @@ from artemis import core as Artemis
 from utils.browser import WebDriverSingleton
 from utils.config import setup
 from utils.print import printer
-from utils.general_utils import is_tum_ID, is_valid_artemis_course_link
+from utils.general_utils import is_tum_ID, is_valid_artemis_course_link, extract_base_url
 
-app = typer.Typer()
+app = typer.Typer(pretty_exceptions_show_locals=False, pretty_exceptions_enable=False)
 
 
 
@@ -32,12 +32,21 @@ def dl_course(
         printer('Link is not a valid Artemis-Course. Please try again!')
         return
     setup(username=username, password=password, download_dir=download_path)
+
+    printer('Opening Browser..')
     sdriver = WebDriverSingleton.get_instance()
-    sdriver.get('https://artemis.in.tum.de/')
+    printer('Browser successfully opened')
+
+    printer('Navigating to Artemis Login Screen')
+    sdriver.get(extract_base_url(link))
     Artemis.enable_dark_mode()
+
+    printer('Trying to login with credentials')
     if Artemis.login() == False: 
         printer('Login failed. Please check your credentials and try again!')
         return
+    printer('Successfully logged in')
+
     time.sleep(2)
     course = ArtemisCourse(course_link=link)
     course.open()

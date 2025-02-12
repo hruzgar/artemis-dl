@@ -14,22 +14,21 @@ from utils.print import printer
 
 class ArtemisExercise:
 
-    def __init__(self, exercise_link, course_name=None, exercise_name=None):
-        self.exercise_link = exercise_link
+    def __init__(self, course_name=None, exercise_name=None):
         self.course_name = course_name
         self.exercise_name = exercise_name
         self.exercise_tags = []
 
     def open(self):
-        browser.sdriver.get(self.exercise_link)
         try:
-            WebDriverWait(browser.sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/jhi-main/div/div[2]/div/jhi-course-exercise-details/div/jhi-header-exercise-page-with-details/div/div[1]/div[1]/div/span')))
+            WebDriverWait(browser.sdriver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="exercise-header"]')))
         except TimeoutException:
             print("Exercise Loading took too much time!")
         time.sleep(1)
 
         if self.exercise_name is None: self.get_exercise_name()
         if self.course_name is None: self.get_course_name()
+        
         self.exercise_download_path = config.download_dir.joinpath(utils.slugify(self.course_name)).joinpath(
             utils.slugify(self.exercise_name))
         self.get_exercise_tags()
@@ -38,7 +37,7 @@ class ArtemisExercise:
             utils.slugify(self.exercise_name))
 
     def get_exercise_name(self):
-        self.exercise_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-3').text
+        self.exercise_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#exercise-header').text
 
     def get_course_name(self):
         self.course_name = browser.sdriver.find_element(By.CSS_SELECTOR, '#bread-crumb-plain-1').text
