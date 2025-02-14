@@ -4,7 +4,7 @@ import os
 import sys
 import requests
 import shutil
-import exercises.element_paths as element_paths
+from exercises.soup_operations import remove_unnecessary_elements, remove_test_icons
 import utils.browser as browser
 from utils.print import printer
 
@@ -15,15 +15,41 @@ def save_page_to_html(exercise_name, exercise_download_dir, cookie=''):
     copy_custom_css_files(assets_dir)
 
     soup = BeautifulSoup(browser.sdriver.page_source, 'html.parser')
-    remove_base_tag(soup)
-    inject_custom_css_files(soup, assets_dir)
+    exercise_instructions_content = soup.select_one("#programming-exercise-instructions-content")
+    new_soup = BeautifulSoup(str(exercise_instructions_content), "html.parser")
+    full_soup = BeautifulSoup("""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Extracted Content</title>
+        <style>
+            body {
+                margin-left: 4%;
+                margin-right: 4%;
+            }
+        </style>
+    </head>
+    <body></body>
+    </html>
+    """, "html.parser")
+
+    # Inject the extracted content into <body>
+    full_soup.body.append(new_soup)
+    full_soup.title.string = exercise_name
+
+
+    # remove_base_tag(soup)
+    inject_custom_css_files(full_soup, assets_dir)
     # soup = replace_css_file_links(soup)
-    remove_unnecessary_elements(soup)
-    remove_javascript_links(soup)
-    download_remote_images_and_replace_links(soup, str(assets_dir), cookie=cookie)
+    # remove_unnecessary_elements(soup)
+    # remove_javascript_links(soup)
+    remove_test_icons(full_soup)
+    download_remote_images_and_replace_links(full_soup, str(assets_dir), cookie=cookie)
 
     with open(str(webpage_dir.joinpath('index.html')), 'w', encoding='utf-8') as file:
-        file.write(str(soup))
+        file.write(str(full_soup))
 
 def copy_custom_css_files(assets_dir):
     # copies the custom css files to the exercise directory
@@ -76,47 +102,6 @@ def replace_css_file_links(soup):
             link_tag['href'] = 'http://hruzgar.com/artemis-dl-css/styles.css'
         # link_tag['href'] = 'http://hruzgar.com/artemis-dl-css/' + link_tag['href']
 
-def remove_css_file_links(soup):
-    # removes the 'link' tags in the html file to direct to my custom css files (for dark mode)
-    for link_tag in soup.find_all('link'):
-        if (link_tag['rel'][0] != 'stylesheet'): continue
-        link_tag.decompose()
-
-def remove_unnecessary_elements(soup):
-    ###
-    # Remove Results Bar if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_1)
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_2)
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_3)
-
-    ###
-    soup.css.select(element_paths.exercise_navbar)[0].decompose() # Header (ganz oben mit Artemis Zeichen und navbar)
-    soup.css.select(element_paths.exercise_path_row)[0].decompose() # Index (Zeigt 'Courses > Prakti..')
-    
-    # 'Assessment:automatic'
-    remove_with_selector_if_exists(soup, element_paths.exercise_assessment_text)
-
-    due_things = soup.css.select(element_paths.exercise_due_date_rows) # Submission due: ..
-    for due_thing in due_things:
-        due_thing.decompose()
-
-    remove_with_selector_if_exists(soup, element_paths.exercise_clone_row) # Clone Repository part
-    ###
-    # remove 'Tasks' part, if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_tasks_row)
-
-    ###
-    # remove Community Field if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_community_field)
-
-    ###
-    soup.find('jhi-footer').decompose()
-    # soup.css.select(soup, element_paths.exercise_footer)[0].decompose() # Footer (About, Privacy und so ganz unten)
-
-def remove_with_selector_if_exists(soup, css_selector):
-    elements = soup.css.select(css_selector)
-    if len(elements) != 0: elements[0].decompose()
-
 
 def download_image(url, local_directory, cookie):
     response = requests.get(url, headers={"cookie": cookie})
@@ -146,7 +131,7 @@ def download_remote_images_and_replace_links(soup, local_directory, cookie):
         else:
             downloaded_image_path = download_image(image_url, local_directory, cookie)
         if downloaded_image_path:
-            img_tag['src'] = downloaded_image_path
+            img_tag['src'] = "./assets/" + os.path.basename(downloaded_image_path)
         else:
             img_tag.decompose()
             printer('Image failed to download: ' + image_url)

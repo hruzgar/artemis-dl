@@ -6,8 +6,8 @@ from selenium.webdriver.common.print_page_options import PrintOptions
 from bs4 import BeautifulSoup
 import utils.browser as browser
 from utils.config import temp_dir
-import exercises.element_paths as element_paths
 from utils.print import printer
+from exercises.soup_operations import remove_unnecessary_elements
 
 def print_using_chromedriver(driver, file_name, file_path=''):
     # use can defined additional parameters if needed
@@ -90,33 +90,7 @@ def replace_css_file_links(soup):
         # link_tag['href'] = 'http://hruzgar.com/artemis-dl-css/' + link_tag['href']
     return soup    
 
-def remove_unnecessary_elements(soup):
-    # Remove Results Bar if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_1)
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_2)
-    remove_with_selector_if_exists(soup, element_paths.exercise_results_row_3)
 
-    # Remove Header (ganz oben mit Artemis Zeichen und navbar)
-    soup.css.select(element_paths.exercise_navbar_and_upper_stuff)[0].decompose()     
-
-    # due_things = soup.css.select(element_paths.exercise_due_date_rows) # Submission due: ..
-    # for due_thing in due_things:
-    #     due_thing.decompose()
-
-    # remove 'Tasks' part, if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_tasks_row)
-
-    # remove Community Field if exists
-    remove_with_selector_if_exists(soup, element_paths.exercise_community_field)
-
-    soup.find('jhi-footer').decompose()# Footer (About, Privacy und so ganz unten)
-    
-    return soup
-
-def remove_with_selector_if_exists(soup, css_selector):
-    elements = soup.css.select(css_selector)
-    if len(elements) != 0: elements[0].decompose()
-    return soup
 
 
 def download_image(url, local_directory, cookie):

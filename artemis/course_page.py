@@ -54,16 +54,16 @@ class ArtemisCourse:
     def download_all_exercises_one_by_one(self):
         temp_exercises = browser.sdriver.find_elements(By.CSS_SELECTOR, '#test-accordion-item-content > div')
         self.exercises = []
-        for counter in range(len(temp_exercises)):
+        print()
+        for counter in range(25, len(temp_exercises)):
             exercise_card_element = temp_exercises[counter]
             exercise_name = exercise_card_element.find_element(By.XPATH, './jhi-medium-sidebar-card/div/jhi-sidebar-card-item/div/div[1]/span[1]').text
             exercise_card_element.click()
             current_exercise = ArtemisExercise(course_name=self.course_name, exercise_name=exercise_name)
 
-            printer(f'{counter + 1}/{len(temp_exercises)}: Downloading Exercise "{exercise_name}"')
+            printer(f'Downloading Exercise "{exercise_name}" ({counter + 1}/{len(temp_exercises)})')
             start = time.time()
             current_exercise.open()
-            current_exercise.collapse_all_parts()
             current_exercise.download_exercise()
             end = time.time()
             elapsed_time = round(end - start)
