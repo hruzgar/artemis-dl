@@ -1,4 +1,4 @@
-**All the recent changes to Artemis in the last year or so made the downloader unusable atm, but I'm working on a fix now and it should not take too long (I'm basically rewriting huge parts of the logic but also improving the codebase).**
+> **⚠️ This project is no longer maintained.** Recent changes to Artemis have broken the downloader, and I no longer have the time to keep up with fixes. If you're interested in taking over or forking this project, feel free to reach out or open an issue, I'd be happy to hand it off to someone who wants to keep it alive.
 
 ![](https://github.com/hruzgar/artemis-dl/blob/main/showcase.png)
 # Introduction
@@ -129,7 +129,7 @@ Currently only 2 courses are officially supported. These are:
 - [Praktikum: Grundlagen der Programmierung WS22/23](https://artemis.in.tum.de/courses/201/exercises)
 - [Einführung in die Rechnerarchitektur (WS22/23)](https://artemis.in.tum.de/courses/218/exercises)
 
-Other courses might also work but weren't tested. If this scraper works for your course please send an email to [haso@ruezgar.de](mailto:haso@ruezgar.de) so i can add it to the list. If your course does not work with this scraper you could also send an email for me to support the course (i would need your login details) or just contribute to the project.
+Other courses might also work but weren't tested. 
 ***
 </details>
 <details><summary>What is a course-link and how can i find it?</summary>
@@ -139,7 +139,6 @@ You can get the course-link of your course, if you open your Artemis Course-Page
 ***
 </details>
 
-If you have any other questions, you can reach out to me on [haso@ruezgar.de](mailto:haso@ruezgar.de)
 </details>
 
 <details><summary><b>Roadmap</b></summary>
